@@ -34,6 +34,7 @@ def clean_data(dataset):
         ):
             row[1] = "Sidharth Singh"
 
+    # convert to dataframe
     dataframe = pd.DataFrame(
         dataset[1:],
         columns=[
@@ -50,10 +51,13 @@ def clean_data(dataset):
             "email",
         ],
     )
+
     return dataframe
 
 
 def create_table(dataframe):
+
+    # empty matrix with prof name as index
     data = [[0 for x in range(10)] for y in range(36)]
     for index, row in enumerate(data):
         row[0] = sorted(list(set(dataframe["prof"])))[index]
@@ -74,6 +78,7 @@ def create_table(dataframe):
         ],
     ).astype(
         {
+            # use floats for the aggregate ratings
             "engaging": np.float64,
             "interesting_material": np.float64,
             "grading": np.float64,
@@ -85,11 +90,13 @@ def create_table(dataframe):
         }
     )
 
+    # set prof name as index
+
     return prof_ratings
 
 
 def populate_table(prof_ratings, dataset):
-    print(dataset)
+
     for index, prof in enumerate(prof_ratings["prof"]):
 
         prof_ratings.at[index, prof_ratings.columns[1]] = len(
@@ -106,6 +113,7 @@ def populate_table(prof_ratings, dataset):
             all_ratings.append(average_rating)
             prof_ratings.at[index, prof_ratings.columns[i - 1]] = average_rating
 
+        # calculate compound score
         compound = round(
             (
                 (
