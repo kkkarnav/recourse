@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "nodemon": "^2.0.15",
+    "typescript": "^4.5.4"
+  },
+  "name": "recourse_api",
+  "version": "1.0.0",
+  "description": "rest api for recourse at ashoka",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "@kkkarnav",
+  "license": "GPL-3.0-or-later"
+}
