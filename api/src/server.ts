@@ -1,10 +1,18 @@
 import http from 'http';
 import express, {Express} from 'express';
+import mongoose from 'mongoose';
 import morgan from 'morgan';
+require('dotenv').config();
 
 import routes from './routes/routes';
 
 const router: Express = express();
+
+// connect to mongodb
+const db_url = ''.concat('mongodb+srv://', process.env.DB_USER!, ':', process.env.DB_PWD!, '@', process.env.DB_HOST!, '.w70wr.mongodb.net/recourse?retryWrites=true&w=majority');
+mongoose.connect(db_url)
+.then(() => console.log('database connected'))
+.catch(err => console.log(err));
 
 //logging
 router.use(morgan('dev'));
