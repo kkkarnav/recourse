@@ -1,26 +1,26 @@
 {
-    "P0101": {
-        "name": "Debayan Gupta",
-        "email": "debayan.gupta@ashoka.edu.in",
-        "link": "https://www.ashoka.edu.in/welcome/faculty#!/debayan-gupta-1157",
-        "department": "CS",
+	"P0101": {
+		"name": "Debayan Gupta",
+		"email": "debayan.gupta@ashoka.edu.in",
+		"link": "https://www.ashoka.edu.in/welcome/faculty#!/debayan-gupta-1157",
+		"department": "CS",
 		"courses": {
-            "FC-0309-1": {
-            	"name": "Quantitative Reasoning & Mathematical Thinking",
-            	"semester": "Monsoon 2021",
-            	"department": "FC",
-            	"ratings": {
-            		"sample_size": 15,
-            		"engaging": 4.47,
-            		"interesting_material": 4.80,
-            		"grading": 3.20,
-            		"workload": 2.80,
-            		"attendance": 4.47,
-            		"TFs": 4.07,
-            		"holistic": 4.40,
-            		"compound_score": 4.16
-            	}
-            }
-        }
-    }
+			"FC-0309-1": {
+				"name": "Quantitative Reasoning & Mathematical Thinking",
+				"semester": "Monsoon 2021",
+				"department": "FC",
+				"ratings": {
+					"sample_size": 15,
+					"engaging": 4.47,
+					"interesting_material": 4.80,
+					"grading": 3.20,
+					"workload": 2.80,
+					"attendance": 4.47,
+					"TFs": 4.07,
+					"holistic": 4.40,
+					"compound_score": 4.16
+				}
+			}
+		}
+	}
 }
