@@ -34,7 +34,6 @@ def clean_data(dataset):
         ):
             row[1] = "Sidharth Singh"
 
-    # convert to dataframe
     dataframe = pd.DataFrame(
         dataset[1:],
         columns=[
@@ -55,9 +54,7 @@ def clean_data(dataset):
     return dataframe
 
 
-def create_table(dataframe):
-
-    # empty matrix with prof name as index
+def create_matrix(dataframe):
     data = [[0 for x in range(10)] for y in range(36)]
     for index, row in enumerate(data):
         row[0] = sorted(list(set(dataframe["prof"])))[index]
@@ -78,7 +75,6 @@ def create_table(dataframe):
         ],
     ).astype(
         {
-            # use floats for the aggregate ratings
             "engaging": np.float64,
             "interesting_material": np.float64,
             "grading": np.float64,
@@ -90,51 +86,63 @@ def create_table(dataframe):
         }
     )
 
-    # set prof name as index
+    # prof_ratings = prof_ratings.set_index('prof')
 
     return prof_ratings
 
 
-def populate_table(prof_ratings, dataset):
+def populate_matrix(prof_ratings, dataset):
 
+    # for each unique prof
     for index, prof in enumerate(prof_ratings["prof"]):
 
-        prof_ratings.at[index, prof_ratings.columns[1]] = len(
-            [row for row in dataset if prof in row[1]]
-        )
-        all_ratings = []
-        for i in range(3, 10):
-            ratings = [
-                int(row[i - 1]) if row[i - 1] else 0
-                for row in dataset
-                if prof in row[1]
-            ]
-            average_rating = round(float(sum(ratings) / len(ratings)), 2)
-            all_ratings.append(average_rating)
-            prof_ratings.at[index, prof_ratings.columns[i - 1]] = average_rating
+        # generate filtered dataframe of only entries for that prof
+        prof_reviews = dataset[dataset.prof == prof]
 
-        # calculate compound score
+        # assign the number of individual reviews to sample_size
+        prof_ratings.at[index, "sample_size"] = len(prof_reviews)
+
+        # for each of the ratings columns
+        for column_index in range(3, 10):
+
+            # get every individual rating for that rating metric
+            all_ratings_for_metric = [
+                int(rating) if rating else 2.5
+                for rating in prof_reviews.iloc[:, column_index - 1]
+            ]
+
+            # generate average rating for that rating metric
+            average_rating_for_metric = round(
+                float(sum(all_ratings_for_metric) / len(all_ratings_for_metric)), 2
+            )
+
+            # assign it to that prof and metric cell
+            prof_ratings.at[
+                index, prof_ratings.columns[column_index - 1]
+            ] = average_rating_for_metric
+
+        # generate compound score and tack on
         compound = round(
             (
                 (
-                    2 * all_ratings[0]
-                    + 1 * all_ratings[1]
-                    + 0.8 * all_ratings[2]
-                    + 1.2 * all_ratings[3]
-                    + 0.8 * all_ratings[4]
-                    + 0.4 * all_ratings[5]
-                    + 4 * all_ratings[6]
+                    2 * prof_ratings.at[index, "engaging"]
+                    + 1 * prof_ratings.at[index, "interesting_material"]
+                    + 0.8 * prof_ratings.at[index, "grading"]
+                    + 1.2 * prof_ratings.at[index, "workload"]
+                    + 0.8 * prof_ratings.at[index, "attendance"]
+                    + 0.4 * prof_ratings.at[index, "TFs"]
+                    + 4 * prof_ratings.at[index, "holistic"]
                 )
                 / 51
             )
             * 5,
             2,
         )
-        prof_ratings.at[index, prof_ratings.columns[9]] = compound
+        prof_ratings.at[index, "compound_score"] = compound
 
-    # print(prof_ratings[["prof", "workload"]].sort_values(by=["workload"], ascending=False))
-
-    return prof_ratings.query("sample_size >= 1").sort_values(
+    # return the matrix after filtering by sample size
+    min_sample_size = 1
+    return prof_ratings.query("sample_size >= " + str(min_sample_size)).sort_values(
         by=["compound_score"], ascending=False
     )
 
@@ -164,18 +172,15 @@ def science_metric(prof_ratings):
         "Madhavi Menon",
     ]
 
-    prof_ratings = prof_ratings.set_index("prof")
-
 
 if __name__ == "__main__":
 
     file_data = load_data("reviews.csv")
     cleaned_dataframe = clean_data(file_data)
 
-    table = create_table(cleaned_dataframe)
-    table = populate_table(table, file_data)
+    matrix = create_matrix(cleaned_dataframe)
+    matrix = populate_matrix(matrix, cleaned_dataframe)
 
-    science_metric(table)
+    # science_metric(matrix)
 
-    # pprint.pprint(table)
-    print(table.to_html())
+    # print(matrix.to_html())
