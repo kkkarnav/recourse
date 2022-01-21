@@ -3,8 +3,6 @@ import axios, {AxiosResponse} from 'axios';
 import mongoose from 'mongoose';
 import {Course} from '../models/course/model';
 
-console.log("in controllers");
-
 const getCourses = async (request: Request, response: Response, next: NextFunction) => {
 
 	console.log(mongoose.connection.readyState);

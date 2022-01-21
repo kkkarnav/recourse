@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-console.log("in database");
-
 mongoose.Promise = global.Promise;
 
 // generate database url from .env
@@ -9,7 +7,7 @@ const db_url = ''.concat('mongodb+srv://', process.env.DB_USER!, ':', process.en
 
 // connect to mongodb
 mongoose.connect(db_url)
-.then(() => console.log('database connected'))
+.then(() => console.log('db connected @ ' + process.env.DB_HOST!))
 .catch(err => console.log(err));
 
 export {mongoose};

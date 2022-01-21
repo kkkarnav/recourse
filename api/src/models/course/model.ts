@@ -1,7 +1,5 @@
 import {mongoose} from '../../config/database';
 
-console.log("in models");
-
 interface course_interface extends mongoose.Document {
 	code: String,
 	conventional_code: String,
