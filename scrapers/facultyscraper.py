@@ -1,11 +1,54 @@
+import json
 import pprint
 
 from web_scraper import Scraper
 
 
+subjects = {
+    "Computer Science": "CS",
+    "Politic": "POL",
+    "Economic": "ECO",
+    "Physics": "PHY",
+    "History": "HIS",
+    "Visual": "VA",
+    "Chemisty": "CHM",
+    "Writing": "CW",
+    "Math": "MAT",
+    "Philosoph": "PHI",
+    "Media Studies": "MS",
+    "Biology": "BIO",
+    "International Relation": "IR",
+    "Sociology": "SOA",
+    "Entrepreneur": "ENT",
+    "Environment": "ES",
+    "Psych": "PSY",
+    "English": "ENG",
+    "Performing": "PA"
+}
+
+
+def clean_html_artifacts(string):
+    artifacts = [
+        "\\t",
+        "\\n",
+        "<br> ",
+        "<br>",
+        "\\xc2",
+        "\\xa0",
+        "\\xc3",
+        "\\xa9",
+        "\\xe2",
+        "\\x80",
+        "\\x99",
+    ]
+    for element in artifacts:
+        string = string.replace(element, "")
+    string = string.replace(",  ", ", ").replace("\\'", "'").strip(".").strip()
+    return string
+
+
 def string_between(string, start, stop):
-    string = string.replace("\\t", "").replace("\\n", "")
-    return (string.split(start)[1]).split(stop)[0]
+    return clean_html_artifacts((string.split(start)[1]).split(stop)[0])
 
 
 def grab_html_table(scraper, url):
@@ -51,8 +94,18 @@ def process_faculty_html(html_tables):
                 prof_html_entry, "</h4><p>", "</p><small>"
             )
             prof_object["qualification"] = string_between(
-                prof_html_entry, "</p><small>", "</small></div></a></div></div>"
+                prof_html_entry, "</p><small>", "</small>"
             )
+            if "mailto:" in prof_html_entry:
+                prof_object["email"] = string_between(
+                    prof_html_entry,
+                    '</small><a href="mailto:',
+                    '"><img src="https://www.ashoka.edu.in/wp-content/themes/ashoka/images/mail-icon.png',
+                )
+            for department in subjects.keys():
+                if department in prof_object["position"]:
+                    prof_object["department"] = subjects[department]
+                    break
             prof_objects.append(prof_object)
 
     return prof_objects
@@ -66,3 +119,5 @@ if __name__ == "__main__":
     html_strings = get_raw_data(scraper_object, base_link, additional_link)
     professors = process_faculty_html(html_strings)
     pprint.pprint(professors)
+    with open("temp.json", "w") as file:
+        json.dump({"professors": professors}, file)
