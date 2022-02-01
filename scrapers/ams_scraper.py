@@ -10,11 +10,9 @@ from selenium.webdriver.support.ui import Select
 import os
 from dotenv import load_dotenv
 from time import sleep
-import json
 
 
 class AMSScraper:
-
     def __init__(self):
         load_dotenv()
         # needs a geckodriver.exe in the same folder as a script,
@@ -28,10 +26,7 @@ class AMSScraper:
         self.driver.implicitly_wait(0.5)
 
         # for convenience, runs fine in headless too
-        # self.driver.maximize_window()
-
-        # base url
-        self.driver.get("https://ams.ashoka.edu.in/")
+        self.driver.maximize_window()
 
     # engine function to submit text to an input field
     def fill_text(self, findby_criteria, find_parameter, fill_parameter):
@@ -73,11 +68,11 @@ class AMSScraper:
     # clicks the get button, then switches pagesize to all to get all the data
     def grab_table_data(self):
         get_button = self.driver.find_element(By.CLASS_NAME, "blue")
-        click_get = wait(self.driver, 10).until(EC.element_to_be_clickable(get_button))
+        click_get = wait(self.driver, 20).until(EC.element_to_be_clickable(get_button))
         click_get.click()
 
         select = Select(self.driver.find_element(By.CLASS_NAME, "pagesize"))
-        sleep(5)
+        sleep(10)
         select.select_by_index(5)
 
         sleep(1)
@@ -88,15 +83,13 @@ class AMSScraper:
 
         raw_data = raw_data.split("<tbody")[1]
         row_count = len(raw_data.split("</tr>")) - 4
-        print(row_count)
         data = [[[None] for column in range(6)] for row in range(row_count - 1)]
 
-        print(raw_data)
         for i in range(row_count - 1):
             start_location = raw_data.find("<tr")
             one_row = raw_data[start_location:]
 
-            for j in range(5):
+            for j in range(1, 5):
                 cell_start = one_row.find("<td")
                 cell_end = one_row.find("</td>")
                 data[i][j] = (
@@ -113,24 +106,72 @@ class AMSScraper:
 
         return data
 
+    # converts major minor report page html data into lists
+    def process_major_minor(self, raw_data):
+
+        raw_data = raw_data.split("<tbody")[1].split(
+            '<tr role="row"><th colspan="6" class="ts-pager form-horizontal tablesorter-pager"'
+        )[0]
+        row_count = len(raw_data.split("</tr>"))
+        data = [[[None] for column in range(6)] for row in range(row_count - 1)]
+
+        for i in range(row_count - 1):
+            start_location = raw_data.find("<tr")
+            end_location = raw_data.find("</tr>")
+            one_row = raw_data[start_location:end_location]
+
+            for j in range(6):
+                cell_start = one_row.find("<td")
+                cell_end = one_row.find("</td>")
+                data[i][j] = (
+                    one_row[cell_start:cell_end]
+                    .replace("<br>", " ")
+                    .split(">")[1]
+                    .split("<")[0]
+                )
+                one_row = one_row.split("</td>", 1)[1]
+            raw_data = raw_data.split("</tr>", 1)[1]
+
+        return data
+
     def scrape(self, page_namestring):
 
-        self.login()
+        # base url
+        self.driver.get("https://ams.ashoka.edu.in/")
+
+        ams_data = [None]
+
+        self.login() if self.driver.find_elements(By.ID, "identifierId") else print(
+            "already logged in"
+        )
         if page_namestring == "View Course Catalogue":
 
             # OR use pre-retrieved data
-            # with open("./courses.txt", "r") as f:
+            # with open("./course.txt", "r") as f:
             #     html_table = f.read()
 
             self.navigate_to_page_from_tile("fa-users")
             html_table = self.grab_table_data()
             ams_data = self.process_course_catalogue(html_table)
 
-            with open("./courses2.txt", "w") as f:
-                f.write(str(ams_data))
-                print(ams_data)
+        if page_namestring == "Major Minor Report":
+
+            # OR use pre-retrieved data
+            # with open("./major.txt", "r") as f:
+            #     html_table = f.read()
+
+            self.navigate_to_page_from_navbar(8, page_namestring)
+            html_table = self.grab_table_data()
+            ams_data = self.process_major_minor(html_table)
+
+        with open("./result.txt", "w") as f:
+            f.write(str(ams_data))
+            print(ams_data)
+
+        return ams_data
 
 
 if __name__ == "__main__":
     scraper = AMSScraper()
     scraper.scrape("View Course Catalogue")
+    scraper.scrape("Major Minor Report")
