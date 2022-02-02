@@ -75,8 +75,43 @@ class AMSScraper:
         sleep(10)
         select.select_by_index(5)
 
-        sleep(1)
+        sleep(5)
         return self.driver.page_source
+
+    # scrapes course details from the view modal for a given course entry
+    def grab_course_detail(self, view_number):
+        while True:
+            try:
+                view_button = self.driver.find_elements(By.LINK_TEXT, 'view')[view_number]
+                view_button.click()
+                sleep(1)
+                break
+            except Exception:
+                continue
+
+        html_data = self.driver.find_elements(By.ID, 'divdata')[0].get_attribute('innerHTML')
+
+        while True:
+            try:
+                close_button = self.driver.find_elements(By.TAG_NAME, 'button')[11]
+                close_button.click()
+                sleep(1)
+                break
+            except Exception:
+                continue
+
+        return html_data
+
+    # goes through course catalogue table and scrapes modal data for each course
+    def grab_course_catalogue_details(self):
+
+        course_detail_htmls = []
+        view_count = len(self.driver.find_elements(By.LINK_TEXT, 'view'))
+
+        for view_number in range(view_count):
+            course_detail_htmls.append(self.grab_course_detail(view_number))
+
+        return course_detail_htmls
 
     # converts course catalogue page html data into lists
     def process_course_catalogue(self, raw_data):
@@ -89,7 +124,7 @@ class AMSScraper:
             start_location = raw_data.find("<tr")
             one_row = raw_data[start_location:]
 
-            for j in range(1, 5):
+            for j in range(1, 6):
                 cell_start = one_row.find("<td")
                 cell_end = one_row.find("</td>")
                 data[i][j] = (
@@ -136,22 +171,21 @@ class AMSScraper:
 
     def scrape(self, page_namestring):
 
+        ams_data = [None]
+
         # base url
         self.driver.get("https://ams.ashoka.edu.in/")
 
-        ams_data = [None]
-
+        # log into AMS if not already logged in
         self.login() if self.driver.find_elements(By.ID, "identifierId") else print(
             "already logged in"
         )
-        if page_namestring == "View Course Catalogue":
 
-            # OR use pre-retrieved data
-            # with open("./course.txt", "r") as f:
-            #     html_table = f.read()
+        if page_namestring == "View Course Catalogue":
 
             self.navigate_to_page_from_tile("fa-users")
             html_table = self.grab_table_data()
+            course_details = self.grab_course_catalogue_details()
             ams_data = self.process_course_catalogue(html_table)
 
         if page_namestring == "Major Minor Report":
@@ -163,10 +197,6 @@ class AMSScraper:
             self.navigate_to_page_from_navbar(8, page_namestring)
             html_table = self.grab_table_data()
             ams_data = self.process_major_minor(html_table)
-
-        with open("./result.txt", "w") as f:
-            f.write(str(ams_data))
-            print(ams_data)
 
         return ams_data
 
