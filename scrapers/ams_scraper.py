@@ -67,33 +67,45 @@ class AMSScraper:
     # WARNING: this function is prone to failing because the page arbitrarily async loads, just retry
     # clicks the get button, then switches pagesize to all to get all the data
     def grab_table_data(self):
+
+        # i am completely aware how hacky this is
+        # but there doesn't seem to be a way around it, the dropdown is very messy
+        # if you want a semester other than the current one, run the scraper in fullscreen, NOT headless
+        # once the page loads, use this sleep to manually select the semester
+        sleep(5)
+
         get_button = self.driver.find_element(By.CLASS_NAME, "blue")
         click_get = wait(self.driver, 20).until(EC.element_to_be_clickable(get_button))
         click_get.click()
+        sleep(5)
 
         select = Select(self.driver.find_element(By.CLASS_NAME, "pagesize"))
-        sleep(10)
+        sleep(2)
         select.select_by_index(5)
+        sleep(2)
 
-        sleep(5)
         return self.driver.page_source
 
     # scrapes course details from the view modal for a given course entry
     def grab_course_detail(self, view_number):
         while True:
             try:
-                view_button = self.driver.find_elements(By.LINK_TEXT, 'view')[view_number]
+                view_button = self.driver.find_elements(By.LINK_TEXT, "view")[
+                    view_number
+                ]
                 view_button.click()
                 sleep(1)
                 break
             except Exception:
                 continue
 
-        html_data = self.driver.find_elements(By.ID, 'divdata')[0].get_attribute('innerHTML')
+        html_data = self.driver.find_elements(By.ID, "divdata")[0].get_attribute(
+            "innerHTML"
+        )
 
         while True:
             try:
-                close_button = self.driver.find_elements(By.TAG_NAME, 'button')[11]
+                close_button = self.driver.find_elements(By.TAG_NAME, "button")[11]
                 close_button.click()
                 sleep(1)
                 break
@@ -106,7 +118,7 @@ class AMSScraper:
     def grab_course_catalogue_details(self):
 
         course_detail_htmls = []
-        view_count = len(self.driver.find_elements(By.LINK_TEXT, 'view'))
+        view_count = len(self.driver.find_elements(By.LINK_TEXT, "view"))
 
         for view_number in range(view_count):
             course_detail_htmls.append(self.grab_course_detail(view_number))
@@ -183,6 +195,8 @@ class AMSScraper:
 
         if page_namestring == "View Course Catalogue":
 
+            # retrieved data at course.txt and coursedetails.txt
+
             self.navigate_to_page_from_tile("fa-users")
             html_table = self.grab_table_data()
             course_details = self.grab_course_catalogue_details()
@@ -190,9 +204,7 @@ class AMSScraper:
 
         if page_namestring == "Major Minor Report":
 
-            # OR use pre-retrieved data
-            # with open("./major.txt", "r") as f:
-            #     html_table = f.read()
+            # retrieved data at major.txt
 
             self.navigate_to_page_from_navbar(8, page_namestring)
             html_table = self.grab_table_data()
@@ -204,4 +216,3 @@ class AMSScraper:
 if __name__ == "__main__":
     scraper = AMSScraper()
     scraper.scrape("View Course Catalogue")
-    scraper.scrape("Major Minor Report")
