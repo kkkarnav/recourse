@@ -16,6 +16,9 @@
     },
     "name": "recourse_api",
     "version": "1.0.0",
+    "engines": {
+        "node": "17.0.1"
+    },
     "description": "rest api for recourse at ashoka",
     "main": "src/server.ts",
     "scripts": {
