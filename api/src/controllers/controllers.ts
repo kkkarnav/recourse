@@ -32,7 +32,7 @@ const getCourse = async (
                 "compound_score",
             ].includes(query.toLowerCase())
         ) {
-            if (typeof request.query[query] === "number") {
+            if ((request.query[query] != null) && (request.query[query] !== '') && !isNaN(Number(request.query[query]))) {
                 queries["ratings." + query] = request.query[query];
             }
         } else if (["code"].includes(query.toLowerCase())) {
@@ -84,6 +84,47 @@ const getCourse = async (
     });
 };
 
+
+const getProf = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+) => {
+    let queries: any = {};
+    for (let query in request.query) {
+        if (
+            [
+                "sample_size",
+                "engaging",
+                "interesting_material",
+                "grading",
+                "workload",
+                "attendance",
+                "tfs",
+                "holistic",
+                "compound_score",
+            ].includes(query.toLowerCase())
+        ) {
+            if ((request.query[query] != null) && (request.query[query] !== '') && !isNaN(Number(request.query[query]))) {
+                queries["ratings." + query] = request.query[query];
+            }
+        } else {
+            queries[query] = { $regex: request.query[query], $options: "is" };
+        }
+    }
+
+    // mongoose schema call
+    const prof = await Prof.find(queries);
+
+    // respond with course json
+    return response.status(200).json({
+        data: prof,
+    });
+};
+
+
+//__________________________________________________
+// development functions to make entries to database
 const addCourse = async (
     request: Request,
     response: Response,
