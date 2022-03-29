@@ -3,10 +3,15 @@ import axios, { AxiosResponse } from "axios";
 import mongoose from "mongoose";
 import { Course } from "../models/course/model";
 import { Prof } from "../models/faculty/model";
+import { Review } from "../models/review/model";
 
+const ratings_data = require("../temp.json")["data"];
 const faculty_data = require("../faculty.json")["professors"];
 const course_data = require("../courses.json")["data"];
+const review_data = require("../reviews.json")["data"];
 
+
+// query the database with url parameters and return the matching documents`
 const getCourse = async (
     request: Request,
     response: Response,
@@ -84,7 +89,7 @@ const addCourse = async (
     response: Response,
     next: NextFunction
 ) => {
-    for (let course of course_data.slice(0, 7)) {
+    for (let course of course_data) {
         // a document instance
         let course_entry = new Course({
             name: course.name,
@@ -112,25 +117,6 @@ const addCourse = async (
             });
         }
     }
-};
-
-const getProf = async (
-    request: Request,
-    response: Response,
-    next: NextFunction
-) => {
-    let queries: any = {};
-    for (let query in request.query) {
-        queries[query] = { $regex: request.query[query], $options: "is" };
-    }
-
-    // mongoose schema call
-    const prof = await Prof.find(queries);
-
-    // respond with course json
-    return response.status(200).json({
-        data: prof,
-    });
 };
 
 const addProf = async (
@@ -162,4 +148,79 @@ const addProf = async (
     }
 };
 
-export default { getCourse, addCourse, getProf, addProf };
+const addReview = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+) => {
+    for (let review of review_data) {
+        // a document instance
+        let review_entry = new Review({
+            timestamp: review.timestamp,
+            code: review.code,
+            semester: review.semester,
+            ratings: review.ratings,
+            review: review.review,
+        });
+
+        const entryAlreadyExists = await Review.exists({ timestamp: review_entry.timestamp, code: review_entry.code });
+
+        if (!entryAlreadyExists) {
+            // save model to database
+            review_entry.save(function (err, prof) {
+                if (err) return console.error(err);
+                console.log(review.timestamp + " saved to db.");
+            });
+        }
+    }
+};
+
+const updateCourseReviews = async (request: Request, resonse: Response, next: NextFunction) => {
+    for (let course of ratings_data) {
+        // a document instance
+        for (let course_code of course.codes) {
+
+	        for (let existing_course of course_data) {
+
+	        	if (existing_course.code.includes(course_code) && existing_course.semester.toLowerCase() == course.semester.toLowerCase()) {
+	        		existing_course["ratings"] = course.grading;
+
+	        		let course_entry = new Course({
+			            name: existing_course.name,
+			            code: existing_course.code,
+			            department: existing_course.department,
+			            semester: existing_course.semester,
+			            faculty: existing_course.faculty,
+			            document: existing_course.document,
+			            html_details: existing_course.html_details,
+			            ratings: existing_course.ratings,
+			        });
+
+			        const entryAlreadyExists = await Course.exists({
+			            code: course_entry.code,
+			            semester: course_entry.semester,
+			            "faculty.professors[0].name":
+			                "course_entry.faculty.professors[0].name",
+			        });
+
+			        const existing_entry = await Course.find({
+			            code: course_entry.code,
+			            semester: course_entry.semester,
+			            "faculty.professors[0].name":
+			                "course_entry.faculty.professors[0].name",
+			        });
+
+			        if (!entryAlreadyExists) {
+			            // save model to database
+			            course_entry.save(function (err, course) {
+			                if (err) return console.error(err);
+			                console.log(course.name + " saved to db.");
+			            });
+			        }
+	        	};
+	        };
+    	};
+    };
+};
+
+export default { getCourse, addCourse, getProf, addProf, updateCourseReviews, addReview };
