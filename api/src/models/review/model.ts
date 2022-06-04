@@ -15,6 +15,7 @@ interface review_interface extends mongoose.Document {
         compound_score: Number;
     };
     review: String;
+    verified: Boolean;
 }
 
 const review_schema = new mongoose.Schema(
@@ -33,10 +34,16 @@ const review_schema = new mongoose.Schema(
             compound_score: { type: Number, default: 0 },
         },
         review: { type: String, default: "" },
+        verified: {type: Boolean, default: true }
     },
     {
         collection: "reviews",
     }
 );
+
+review_schema.pre('save', function(next){
+   this.ratings.compound_score = ((this.ratings.engaging.valueOf() + this.ratings.interesting_material.valueOf() + this.ratings.grading.valueOf() + this.ratings.workload.valueOf() + this.ratings.attendance.valueOf() + (0.5 * this.ratings.TFs.valueOf()) + (2 * this.ratings.holistic.valueOf())) / 7.5);
+   next();
+});
 
 export const Review = mongoose.model<review_interface>("Review", review_schema);

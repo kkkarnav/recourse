@@ -33,7 +33,11 @@ const getCourse = async (
             ].includes(query.toLowerCase())
         ) {
             if ((request.query[query] != null) && (request.query[query] !== '') && !isNaN(Number(request.query[query]))) {
-                queries["ratings." + query] = request.query[query];
+                if (Number(request.query[query]) < 0) {
+                    queries["ratings." + query] = {"$lt": (Number(request.query[query]) + 0.01)};
+                } else {
+                    queries["ratings." + query] = {"$gt": (Number(request.query[query]) - 0.01)};
+                }
             }
         } else if (["code"].includes(query.toLowerCase())) {
             queries["code"] = {
@@ -76,11 +80,11 @@ const getCourse = async (
     }
 
     // mongoose schema call
-    const course = await Course.find(queries);
+    const courses = await Course.find(queries);
 
     // respond with course json
     return response.status(200).json({
-        data: course,
+        data: courses,
     });
 };
 
@@ -106,19 +110,29 @@ const getProf = async (
             ].includes(query.toLowerCase())
         ) {
             if ((request.query[query] != null) && (request.query[query] !== '') && !isNaN(Number(request.query[query]))) {
-                queries["ratings." + query] = request.query[query];
+                if (Number(request.query[query]) < 0) {
+                    queries["ratings." + query] = {"$lt": (Number(request.query[query]) + 0.01)};
+                } else {
+                    queries["ratings." + query] = {"$gt": (Number(request.query[query]) - 0.01)};
+                }
             }
         } else {
-            queries[query] = { $regex: request.query[query], $options: "is" };
+            queries[query] = {
+                $regex: request.query[query]!.toString().replace(
+                    /[\[\]\\]/g,
+                    ""
+                ),
+                $options: "is",
+            };
         }
     }
 
     // mongoose schema call
-    const prof = await Prof.find(queries);
+    const profs = await Prof.find(queries);
 
     // respond with course json
     return response.status(200).json({
-        data: prof,
+        data: profs,
     });
 };
 
@@ -177,7 +191,7 @@ const addProf = async (
             email: prof.email,
         });
 
-        const entryAlreadyExists = await Prof.exists({ name: prof_entry.name });
+        const entryAlreadyExists = await Prof.exists({ name: prof_entry.name, email: prof_entry.email });
 
         if (!entryAlreadyExists) {
             // save model to database
