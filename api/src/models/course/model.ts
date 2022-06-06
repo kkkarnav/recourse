@@ -71,4 +71,9 @@ const course_schema = new mongoose.Schema(
     }
 );
 
+course_schema.pre('save', function(next){
+   this.ratings.compound_score = ((this.ratings.engaging.valueOf() + this.ratings.interesting_material.valueOf() + this.ratings.grading.valueOf() + this.ratings.workload.valueOf() + this.ratings.attendance.valueOf() + (0.5 * this.ratings.TFs.valueOf()) + (2 * this.ratings.holistic.valueOf())) / 7.5);
+   next();
+});
+
 export const Course = mongoose.model<course_interface>("Course", course_schema);

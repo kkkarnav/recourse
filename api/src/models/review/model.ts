@@ -34,7 +34,7 @@ const review_schema = new mongoose.Schema(
             compound_score: { type: Number, default: 0 },
         },
         review: { type: String, default: "" },
-        verified: {type: Boolean, default: true }
+        verified: {type: Boolean, default: false }
     },
     {
         collection: "reviews",
