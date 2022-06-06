@@ -8,6 +8,10 @@ interface faculty_interface extends mongoose.Document {
     profile_image: String;
     department: String;
     email: String;
+    courses_offered: {
+        code: String;
+        semester: String;
+    };
     ratings: {
         sample_size: Number;
         engaging: Number;

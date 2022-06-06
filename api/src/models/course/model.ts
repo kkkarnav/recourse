@@ -2,7 +2,6 @@ import { mongoose } from "../../config/database";
 
 interface course_interface extends mongoose.Document {
     code: String;
-    conventional_code: String;
     name: String;
     semester: String;
     department: String;
@@ -34,7 +33,6 @@ interface course_interface extends mongoose.Document {
 const course_schema = new mongoose.Schema(
     {
         code: [{ type: String, default: "" }],
-        conventional_code: { type: String, default: "" },
         name: { type: String, default: "" },
         semester: { type: String, default: "" },
         department: { type: String, default: "" },

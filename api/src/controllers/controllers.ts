@@ -316,17 +316,17 @@ const updateCourseReviews = async (
             ratings: course.ratings,
         });
 
-        const updated_course = await Course.findOneAndUpdate({code: course.code, semester: course.semester, "faculty.professors[0].name": "course_entry.faculty.professors[0].name"}, {"ratings": course_entry.ratings});
+        const updated_course = await Course.update({}, {$unset: {conventional_code: 1}}, {multi: true});
         console.log(updated_course);
 	}
 };
 
 export default {
 	getCourse,
-	addCourse,
-	getProf,
-	addProf,
-	updateCourseReviews,
+    getProf,
     getReview,
+	addCourse,
+	addProf,
 	addReview,
+    updateCourseReviews,
 };
