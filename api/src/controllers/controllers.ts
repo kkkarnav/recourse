@@ -210,6 +210,13 @@ const updateCourse = async (
             field_value.push(found_review!.id);
         }
 
+        // remove field from document
+        /*course.set(field_key, undefined, {strict: false});
+        course.save(function (err, course) {
+            if (err) return console.error(err);
+            console.log(course._id + " updated in db.");
+        });*/
+
         // add field to document
         course[field_key] = field_value;
 
