@@ -9,6 +9,7 @@ interface faculty_interface extends mongoose.Document {
     department: String;
     email: String;
     courses_offered: {
+        _id: mongoose.Schema.Types.ObjectId;
         code: String;
         semester: String;
     };
@@ -34,6 +35,11 @@ const faculty_schema = new mongoose.Schema(
         profile_image: { type: String, default: "#" },
         department: { type: String, default: "" },
         email: { type: String, default: "" },
+        courses_offered: [{
+                    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', default: "" },
+                    code: [{ type: String, default: "" }],
+                    semester: { type: String, default: "" },
+                }],
         ratings: {
             sample_size: { type: Number, default: 0 },
             engaging: { type: Number, default: 0 },

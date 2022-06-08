@@ -4,6 +4,7 @@ interface review_interface extends mongoose.Document {
     timestamp: String;
     code: String;
     semester: String;
+    course_id: mongoose.Schema.Types.ObjectId[];
     ratings: {
         engaging: Number;
         interesting_material: Number;
@@ -23,6 +24,7 @@ const review_schema = new mongoose.Schema(
         timestamp: { type: String, default: "" },
         code: [{ type: String, default: "" }],
         semester: { type: String, default: "" },
+        course_id: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course', default: "" }],
         ratings: {
             engaging: { type: Number, default: 0 },
             interesting_material: { type: Number, default: 0 },

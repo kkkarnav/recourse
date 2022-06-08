@@ -15,6 +15,7 @@ interface course_interface extends mongoose.Document {
             email: String;
         };
     };
+    reviews: mongoose.Schema.Types.ObjectId[];
     document: String;
     html_details: String;
     ratings: {
@@ -50,6 +51,7 @@ const course_schema = new mongoose.Schema(
                 },
             ],
         },
+        reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review', default: "" }],
         document: { type: String, default: "" },
         html_details: { type: String, default: "" },
         ratings: {
