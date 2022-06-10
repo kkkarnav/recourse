@@ -9,25 +9,25 @@ interface course_interface extends mongoose.Document {
         professors: {
             name: String;
             email: String;
-        };
+        }[];
         TFs: {
             name: String;
             email: String;
-        };
+        }[];
     };
     reviews: mongoose.Schema.Types.ObjectId[];
     document: String;
     html_details: String;
     ratings: {
-        sample_size: Number;
-        engaging: Number;
-        interesting_material: Number;
-        grading: Number;
-        workload: Number;
-        attendance: Number;
-        TFs: Number;
-        holistic: Number;
-        compound_score: Number;
+        sample_size: number;
+        engaging: number;
+        interesting_material: number;
+        grading: number;
+        workload: number;
+        attendance: number;
+        TFs: number;
+        holistic: number;
+        compound_score: number;
     };
 }
 
@@ -71,9 +71,9 @@ const course_schema = new mongoose.Schema(
     }
 );
 
-course_schema.pre('save', function(next){
-   this.ratings.compound_score = ((this.ratings.engaging.valueOf() + this.ratings.interesting_material.valueOf() + this.ratings.grading.valueOf() + this.ratings.workload.valueOf() + this.ratings.attendance.valueOf() + (0.5 * this.ratings.TFs.valueOf()) + (2 * this.ratings.holistic.valueOf())) / 7.5);
-   next();
+course_schema.pre('save', function(next) {
+    this.ratings.compound_score = ((this.ratings.engaging.valueOf() + this.ratings.interesting_material.valueOf() + this.ratings.grading.valueOf() + this.ratings.workload.valueOf() + this.ratings.attendance.valueOf() + (0.5 * this.ratings.TFs.valueOf()) + (2 * this.ratings.holistic.valueOf())) / 7.5);
+    next();
 });
 
 export const Course = mongoose.model<course_interface>("Course", course_schema);

@@ -6,14 +6,14 @@ interface review_interface extends mongoose.Document {
     semester: String;
     course_id: mongoose.Schema.Types.ObjectId[];
     ratings: {
-        engaging: Number;
-        interesting_material: Number;
-        grading: Number;
-        workload: Number;
-        attendance: Number;
-        TFs: Number;
-        holistic: Number;
-        compound_score: Number;
+        engaging: number;
+        interesting_material: number;
+        grading: number;
+        workload: number;
+        attendance: number;
+        TFs: number;
+        holistic: number;
+        compound_score: number;
     };
     review: String;
     verified: Boolean;

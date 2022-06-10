@@ -12,17 +12,17 @@ interface faculty_interface extends mongoose.Document {
         _id: mongoose.Schema.Types.ObjectId;
         code: String;
         semester: String;
-    };
+    }[];
     ratings: {
-        sample_size: Number;
-        engaging: Number;
-        interesting_material: Number;
-        grading: Number;
-        workload: Number;
-        attendance: Number;
-        TFs: Number;
-        holistic: Number;
-        compound_score: Number;
+        sample_size: number;
+        engaging: number;
+        interesting_material: number;
+        grading: number;
+        workload: number;
+        attendance: number;
+        TFs: number;
+        holistic: number;
+        compound_score: number;
     };
 }
 
@@ -56,5 +56,10 @@ const faculty_schema = new mongoose.Schema(
         collection: "faculty",
     }
 );
+
+faculty_schema.pre('save', function(next) {
+    this.ratings.compound_score = ((this.ratings.engaging.valueOf() + this.ratings.interesting_material.valueOf() + this.ratings.grading.valueOf() + this.ratings.workload.valueOf() + this.ratings.attendance.valueOf() + (0.5 * this.ratings.TFs.valueOf()) + (2 * this.ratings.holistic.valueOf())) / 7.5);
+    next();
+});
 
 export const Prof = mongoose.model<faculty_interface>("Prof", faculty_schema);
