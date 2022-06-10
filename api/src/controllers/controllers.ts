@@ -175,6 +175,8 @@ const getReview = async (
             };
         } else if (["verified"].includes(query.toLowerCase())) {
             queries["verified"] = (request.query[query] !== "false");
+        } else if (["course_id"].includes(query.toLowerCase())) {
+            queries["course_id"] = request.query[query];
         } else {
             queries[query] = {
                 $regex: request.query[query]!.toString().replace(/[\[\]\\]/g, ""),
@@ -182,6 +184,8 @@ const getReview = async (
             };
         }
     }
+
+    console.log(queries);
 
     // mongoose schema call
     const reviews = await Review.find(queries);
@@ -192,6 +196,29 @@ const getReview = async (
     });
 };
 
+const mapIndexKey = (index: number) => {
+    switch (index) {
+        case 0:
+            return "engaging";
+        case 1:
+            return "interesting_material";
+        case 2:
+            return "grading";
+        case 3:
+            return "workload";
+        case 4:
+            return "attendance";
+        case 5:
+            return "holistic";
+        case 6:
+            return "TFs";
+        case 7:
+            return "compound_score";
+        default:
+            return "compound_score";
+    }
+};
+
 const updateCourse = async (
     request: Request,
     resonse: Response,
@@ -199,40 +226,94 @@ const updateCourse = async (
 ) => {
 
     // get all documents in the collection
-    for (let course of await Course.find({}) ) {
-
-        // key value pair for the field that you want to add to this document
-        let field_key: keyof typeof course = "reviews";
-
-        let field_value: mongoose.Schema.Types.ObjectId[] = [];
-        const found_reviews = await Review.find({ course_id: course._id });
-        for (let found_review of found_reviews) {
-            field_value.push(found_review!.id);
+    for (let course of (await Course.find({})) ) {
+        for (let index = 0; index < 7; index++) {
+            let metric_sum: number = 0;
+            let metric_key: keyof typeof course.ratings = mapIndexKey(index);
+            for (let review of (await Review.find({course_id: course._id})) ) {
+                const review_ratings = review!.ratings;
+                metric_sum += review_ratings[metric_key];
+            }
+            course.ratings[metric_key] = parseFloat((metric_sum / course.reviews.length).toFixed(2));
         }
+        course.ratings["sample_size"] = course.reviews.length;
 
         // remove field from document
-        /*course.set(field_key, undefined, {strict: false});
+        /*course.set("faculty.professors.name", undefined, {strict: false});
         course.save(function (err, course) {
             if (err) return console.error(err);
             console.log(course._id + " updated in db.");
         });*/
 
-        // add field to document
-        course[field_key] = field_value;
-
         // check if existing document entry exists which is up to date
         let entryAlreadyExists = await Course.findOne({
-            semester: course.semester,
-            code: course.code,
-            [field_key]: field_value,
+            _id: course._id,
+            ratings: course.ratings,
         });
 
         // if it isn't, update the db document with the new data
         if (!entryAlreadyExists) {
-            Course.findOneAndUpdate({_id: course._id}, course, {}, function (err, course) {
+            course.save(function (err, course) {
+                if (err) return console.error(err);
+                console.log(course._id + " saved in db.");
+            });
+            /*Course.findOneAndUpdate({_id: course._id}, course, {}, function (err, course) {
                 if (err) return console.error(err);
                 console.log(course?._id + " updated in db.");
+            });*/
+        }
+    }
+};
+
+const updateFaculty = async (
+    request: Request,
+    resonse: Response,
+    next: NextFunction
+) => {
+
+    // get all documents in the collection
+    for (let prof of (await Prof.find({})).slice(0, 1) ) {
+        for (let index = 0; index < 7; index++) {
+            let metric_sum: number = 0;
+            let metric_key: keyof typeof prof.ratings = mapIndexKey(index);
+
+            let sample_size: number = 0;
+            for (let course of prof.courses_offered) {
+                for (let review of (await Review.find({course_id: course._id})) ) {
+                    const review_ratings = review!.ratings;
+                    metric_sum += review_ratings[metric_key];
+                    sample_size += 1;
+                }
+            }
+            prof.ratings[metric_key] = parseFloat((metric_sum / sample_size).toFixed(2));
+            prof.ratings["sample_size"] = sample_size;
+        }
+
+        // remove field from document
+        /*course.set("faculty.professors.name", undefined, {strict: false});
+        course.save(function (err, course) {
+            if (err) return console.error(err);
+            console.log(course._id + " updated in db.");
+        });*/
+
+        // check if existing document entry exists which is up to date
+        let entryAlreadyExists = await Course.findOne({
+            _id: prof._id,
+            ratings: prof.ratings,
+        });
+
+        console.log(prof);
+
+        // if it isn't, update the db document with the new data
+        if (!entryAlreadyExists) {
+            prof.save(function (err, course) {
+                if (err) return console.error(err);
+                console.log(course._id + " saved in db.");
             });
+            /*Course.findOneAndUpdate({_id: course._id}, course, {}, function (err, course) {
+                if (err) return console.error(err);
+                console.log(course?._id + " updated in db.");
+            });*/
         }
     }
 };
@@ -423,5 +504,6 @@ export default {
 	addProf,
 	addReview,
     updateCourse,
+    updateFaculty,
     updateReview,
 };
