@@ -7,4 +7,4 @@ router.get("/api/course", controller.getCourse);
 router.get("/api/prof", controller.getProf);
 router.get("/api/review", controller.getReview);
 
-export = router;	
+export = router;
