@@ -37,7 +37,7 @@ const getCourse = async (
       ) {
         if (Number(request.query[query]) < 0) {
           queries["ratings." + query] = {
-            $lt: Number(request.query[query]) + 0.01,
+            $lt: -Number(request.query[query]) + 0.01,
           };
         } else {
           queries["ratings." + query] = {
@@ -65,6 +65,8 @@ const getCourse = async (
           },
         },
       ];
+    } else if (["id"].includes(query.toLowerCase())) {
+      queries["_id"] = request.query[query];
     } else {
       queries[query] = {
         $regex: request.query[query]!.toString().replace(/[\[\]\\]/g, ""),
@@ -109,7 +111,7 @@ const getProf = async (
       ) {
         if (Number(request.query[query]) < 0) {
           queries["ratings." + query] = {
-            $lt: Number(request.query[query]) + 0.01,
+            $lt: -Number(request.query[query]) + 0.01,
           };
         } else {
           queries["ratings." + query] = {
@@ -117,6 +119,23 @@ const getProf = async (
           };
         }
       }
+    } else if (["offered"].includes(query.toLowerCase())) {
+      queries["$or"] = [
+        {
+          "courses_offered.code": {
+            $regex: request.query[query]!.toString().replace(/[\[\]\\]/g, ""),
+            $options: "is",
+          },
+        },
+        {
+          "courses_offered.semester": {
+            $regex: request.query[query]!.toString().replace(/[\[\]\\]/g, ""),
+            $options: "is",
+          },
+        },
+      ];
+    } else if (["id"].includes(query.toLowerCase())) {
+      queries["_id"] = request.query[query];
     } else {
       queries[query] = {
         $regex: request.query[query]!.toString().replace(/[\[\]\\]/g, ""),
@@ -160,7 +179,7 @@ const getReview = async (
       ) {
         if (Number(request.query[query]) < 0) {
           queries["ratings." + query] = {
-            $lt: Number(request.query[query]) + 0.01,
+            $lt: -Number(request.query[query]) + 0.01,
           };
         } else {
           queries["ratings." + query] = {
@@ -174,7 +193,9 @@ const getReview = async (
         $options: "is",
       };
     } else if (["verified"].includes(query.toLowerCase())) {
-      queries["verified"] = request.query[query] !== "false";
+      queries["verified"] = request.query[query]!.toString().toLowerCase() !== "false";
+    } else if (["id"].includes(query.toLowerCase())) {
+      queries["_id"] = request.query[query];
     } else if (["course_id"].includes(query.toLowerCase())) {
       queries["course_id"] = request.query[query];
     } else {
