@@ -272,21 +272,34 @@ const updateFaculty = async (
 ) => {
 
     // get all documents in the collection
-    for (let prof of (await Prof.find({})).slice(0, 1) ) {
+    for (let prof of (await Prof.find({})) ) {
         for (let index = 0; index < 7; index++) {
+
             let metric_sum: number = 0;
             let metric_key: keyof typeof prof.ratings = mapIndexKey(index);
 
             let sample_size: number = 0;
+            let reviews: any = [];
             for (let course of prof.courses_offered) {
-                for (let review of (await Review.find({course_id: course._id})) ) {
-                    const review_ratings = review!.ratings;
-                    metric_sum += review_ratings[metric_key];
-                    sample_size += 1;
+
+                let full_course = await Course.findOne({ code: course.code, semester: course.semester });
+
+                for (let review of (await Review.find({course_id: full_course!._id}) ) ) {
+
+                    if (!(reviews.includes(review._id))) {
+                        reviews += review._id;
+                        const review_ratings = review!.ratings;
+                        metric_sum += review_ratings[metric_key];
+                        sample_size += 1;
+                    }
                 }
+                prof.ratings["sample_size"] = sample_size;
             }
-            prof.ratings[metric_key] = parseFloat((metric_sum / sample_size).toFixed(2));
-            prof.ratings["sample_size"] = sample_size;
+            if (sample_size > 0) {
+                prof.ratings[metric_key] = parseFloat((metric_sum / sample_size).toFixed(2));
+            } else {
+                prof.ratings[metric_key] = 0;
+            }
         }
 
         // remove field from document
@@ -301,8 +314,6 @@ const updateFaculty = async (
             _id: prof._id,
             ratings: prof.ratings,
         });
-
-        console.log(prof);
 
         // if it isn't, update the db document with the new data
         if (!entryAlreadyExists) {
