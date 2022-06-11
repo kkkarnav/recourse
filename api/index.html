@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="theme-color" content="#000000">
+		<meta property="description" content="Hi there! I'm Karnav, a student and software dev from Calcutta, India">
+		<meta property="og:title" content="Karnav Popat | Student → Developer">
+		<meta property="og:description" content="Hi there! I'm Karnav, a student and software dev from Calcutta, India">
+		<meta property="og:url" content="https://karnav.xyz">
+		<meta property="og:image:secure" content="https://karnav.xyz/assets/img/kit/profile_pic.png">
+		<title>
+			Recourses API
+		</title>
+		<!-- Global site tag (gtag.js) - Google Analytics  -->
+		<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-169367224-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			
+			gtag('config', 'UA-169367224-1');
+		</script>
+	</head>
+	<body>
+		<h2>Welcome to the Recourses API!</h2><br>
+		<p>This is an API of course review data collected over the academic year 2021-22 on courses offered at Ashoka university.</p>
+		<p>You can access this data across three views:</p><br>
+		<ul>
+			<li>
+				Access data by individual course at <a href="./api/course?">/course</a>. You can filter by course code, name, faculty, semester, department, or its average ratings (greater than and less than).<br>
+				For example, here is every FC offered in the Spring 2022 semester which received an average holistic rating less than 3: <a href="./api/course?department=FC&semester=Spring%202022&holistic=-3">./api/course?department=FC&semester=Spring%202022&holistic=-3</a>
+			</li>
+			<br><br>
+			<li>
+				Access data by individual professor at <a href="./api/prof?">/prof</a>. You can filter by name, email, qualification, position, department, courses offered or average ratings (greater than and less than).<br>
+				Here is every professor in the CS department who has a PhD and received an average engaging rating greater than 2: <a href="./api/prof?department=CS&qualification=ph.d&engaging=2">./api/prof?department=CS&qualification=ph.d&engaging=2</a>
+			</li>
+			<br><br>
+			<li>
+				Access data by individual review at <a href="./api/review?">/review</a>. You can filter by course code, semester, verified status, words in the review, or its ratings (greater than and less than).<br>
+				Here is every review on an Economics course in the Spring 2022 semester which has the word "tough" in it: <a href="./api/review?code=ECO&semester=Spring 2022&review=tough">./api/review?code=ECO&semester=Spring 2022&review=tough</a>
+			</li>
+			<br><br><br><br>
+		</ul>
+		<footer><h4>All copyrights <a href="https://karnav.xyz">@kkkarnav</a><br><a href="mailto:hi@karnav.xyz">Get in touch!</a></h4></footer>
+	</body>
+</html>
