@@ -16,12 +16,16 @@
     },
     "name": "recourse_api",
     "version": "1.0.0",
+    "engines": {
+        "node": "17.0.1"
+    },
     "description": "rest api for recourse at ashoka",
     "main": "src/server.ts",
     "scripts": {
         "dev": "nodemon --exec npx ts-node src/server.ts",
-        "build": "rmdir -r build/ && prettier --write src/ && tsc",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "prettier --write src/ && tsc",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon --exec npx ts-node src/server.ts"
     },
     "keywords": [
         "api"
