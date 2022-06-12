@@ -1,5 +1,6 @@
 import json
-import pprint
+from pprint import pprint
+import re
 
 from web_scraper import Scraper
 
@@ -23,7 +24,7 @@ subjects = {
     "Environment": "ES",
     "Psych": "PSY",
     "English": "ENG",
-    "Performing": "PA"
+    "Performing": "PA",
 }
 
 
@@ -65,7 +66,7 @@ def grab_html_table(scraper, url):
 def get_raw_data(scraper, base_url, filter_url):
     html_tables = []
     for page_index in range(1, 22):
-        page_url = base_url + str(page_index) + filter_url
+        page_url = base_url.strip("?") + "/page/" + str(page_index) + "/?" + filter_url
         html_table = grab_html_table(scraper, page_url)
         html_tables.append(html_table)
     return html_tables
@@ -106,18 +107,98 @@ def process_faculty_html(html_tables):
                 if department in prof_object["position"]:
                     prof_object["department"] = subjects[department]
                     break
+
+            if prof_object["name"] == "Kathleen Harbin":
+                prof_object["name"] = "Rachel Kathleen Harbin"
+
             prof_objects.append(prof_object)
 
     return prof_objects
 
 
-if __name__ == "__main__":
+def grab_uwp(url_link):
+    html_response = scraper_object.scrape(url_link)
+    html_content = str(html_response.content)
+    page_ids = re.findall(
+        '(?<=https://www.ashoka.edu.in/profile/)(.*?)(?=/")', html_content
+    )
+    page_images = re.findall(
+        '(?<=<img src="https://www.ashoka.edu.in/wp-content/uploads/)(.*?)(?=" alt="">)',
+        html_content,
+    )
+    page_links = ["https://www.ashoka.edu.in/profile/" + x for x in page_ids]
+    page_images = [
+        "https://www.ashoka.edu.in/wp-content/uploads/" + x for x in page_images
+    ]
+
+    json_objects = []
+    for i in range(len(page_ids)):
+        json_object = {}
+        json_object["profile_link"] = page_links[i]
+        json_object["profile_image"] = page_images[i]
+        json_object["name"] = "".join(
+            [
+                x[0].upper() + x[1:]
+                for x in [
+                    x + " "
+                    for x in page_ids[i].strip().strip("/").replace("-", " ").split(" ")
+                ]
+            ]
+        ).strip()
+        json_object["email"] = (
+            page_ids[i].strip().strip("/").replace("-", ".") + "@ashoka.edu.in"
+        )
+        json_object["department"] = "CW"
+        if i == 4:
+            json_object["email"] = "jasleen.bagga@ashoka.edu.in"
+
+        if i == 0 or i == 1:
+            json_object[
+                "position"
+            ] = "Assistant Professor of Academic Writing, Ashoka University"
+        elif i == 2:
+            json_object[
+                "position"
+            ] = "Visiting Faculty of Creative Writing, Senior Writing Fellow, Undergraduate Writing Programme"
+        elif i == 3:
+            json_object["position"] = "Senior Writing Fellow"
+        else:
+            json_object["position"] = "Writing Fellow"
+
+        json_objects.append(json_object)
+
+    return json_objects
+
+
+def scrape_data():
     scraper_object = Scraper()
-    base_link = "https://www.ashoka.edu.in/roles/faculty/page/"
-    additional_link = "/?yearby=all"
+    base_link = "https://www.ashoka.edu.in/roles/faculty/?"
+    additional_link = "yearby=all"
 
     html_strings = get_raw_data(scraper_object, base_link, additional_link)
     professors = process_faculty_html(html_strings)
-    pprint.pprint(professors)
-    with open("temp.json", "w") as file:
-        json.dump({"professors": professors}, file)
+    professors += grab_uwp("https://www.ashoka.edu.in/uwp-team/")
+    pprint(professors)
+    with open("faculty.json", "w") as file:
+        json.dump({"data": professors}, file)
+
+
+if __name__ == "__main__":
+
+    with open("faculty.json", "r") as file:
+        current_data = json.load(file)["data"]
+
+    with open("D:\\code\\recourse\\api\\src\\faculty.json", "r") as file:
+        old_data = json.load(file)["data"]
+
+    for old_prof in old_data:
+        if old_prof["name"] not in [prof["name"] for prof in current_data] and "Harbin" not in old_prof["name"]:
+            current_data.append(old_prof)
+
+    for index, prof in enumerate(current_data):
+        if "email" not in prof or prof["email"] == "" or prof["email"] != prof["email"].lower():
+            prof["email"] = (prof["name"].split(" ")[0] + "." + prof["name"].split(" ")[1] + "@ashoka.edu.in").lower()
+            current_data[index] = prof
+
+    with open("faculty.json", "w") as file:
+        json.dump({"data": current_data}, file)

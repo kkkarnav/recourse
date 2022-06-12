@@ -23,16 +23,14 @@ class AMSScraper:
         )
 
         self.driver = webdriver.Firefox(options=options)
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(0.5)
 
         # for convenience, runs fine in headless too
         self.driver.maximize_window()
 
     # engine function to submit text to an input field
     def fill_text(self, findby_criteria, find_parameter, fill_parameter):
-        text_area = wait(self.driver, 10).until(
-            EC.element_to_be_clickable((findby_criteria, find_parameter))
-        )
+        text_area = self.driver.find_element(findby_criteria, find_parameter)
         text_area.send_keys(fill_parameter)
         text_area.send_keys(Keys.RETURN)
         sleep(2)
@@ -45,14 +43,11 @@ class AMSScraper:
 
         self.fill_text(By.ID, "identifierId", USERNAME)
         self.fill_text(By.NAME, "password", PASSWORD)
+        sleep(10)
 
     # starting from the home page, locates the specified menu and submenu and clicks on it
     def navigate_to_page_from_navbar(self, menu_number, submenu_name):
-
-        sleep(10)
-
         link = self.driver.find_elements(By.CLASS_NAME, "dropdown-toggle")[menu_number]
-        wait(self.driver, 20).until(EC.element_to_be_clickable(link))
 
         open_menu = ActionChains(self.driver)
         open_menu.move_to_element(link).perform()
@@ -61,12 +56,13 @@ class AMSScraper:
             EC.element_to_be_clickable((By.LINK_TEXT, submenu_name))
         )
         click_submenu.click()
+        sleep(2)
 
     # starting from the home page, locates the specified page tile and clicks on it
     def navigate_to_page_from_tile(self, tile_icon):
         link = self.driver.find_elements(By.CLASS_NAME, tile_icon)[0]
-        wait(self.driver, 20).until(EC.element_to_be_clickable(link))
         link.click()
+        sleep(2)
 
     # WARNING: this function is prone to failing because the page arbitrarily async loads, just retry
     # clicks the get button, then switches pagesize to all to get all the data
@@ -76,16 +72,18 @@ class AMSScraper:
         # but there doesn't seem to be a way around it, the dropdown is very messy
         # if you want a semester other than the current one, run the scraper in fullscreen, NOT headless
         # once the page loads, use this sleep to manually select the semester
+        sleep(5)
 
         get_button = self.driver.find_element(By.CLASS_NAME, "blue")
-        wait(self.driver, 20).until(EC.element_to_be_clickable(get_button))
-        get_button.click()
+        click_get = wait(self.driver, 20).until(EC.element_to_be_clickable(get_button))
+        click_get.click()
+        sleep(5)
 
         select = Select(self.driver.find_element(By.CLASS_NAME, "pagesize"))
-        wait(self.driver, 20).until(EC.element_to_be_clickable(select))
+        sleep(2)
         select.select_by_index(5)
+        sleep(2)
 
-        wait(self.driver, 20).until(EC.element_to_be_clickable(get_button))
         return self.driver.page_source
 
     # scrapes course details from the view modal for a given course entry
@@ -119,8 +117,6 @@ class AMSScraper:
     # goes through course catalogue table and scrapes modal data for each course
     def grab_course_catalogue_details(self):
 
-        sleep(10)
-
         course_detail_htmls = []
         view_count = len(self.driver.find_elements(By.LINK_TEXT, "view"))
 
@@ -128,31 +124,6 @@ class AMSScraper:
             course_detail_htmls.append(self.grab_course_detail(view_number))
 
         return course_detail_htmls
-
-    def grab_major_minor_rows(self):
-
-        sleep(5)
-
-        get_button = wait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "blue"))
-        )
-        get_button.click()
-
-        sleep(10)
-
-        select = Select(self.driver.find_element(By.CLASS_NAME, "pagesize"))
-        sleep(5)
-        select.select_by_index(5)
-
-        wait(self.driver, 10).until(EC.element_to_be_clickable(get_button))
-        html_data = self.driver.page_source.split(
-            "TableAdvanceSearch pagerDisabled tablesorter tablesorter-bootstrap "
-            "table table-bordered table-striped hasFilters"
-        )[1]
-        html_data = html_data.split("1 - 7283 / 7283 (7283)")[0]
-        html_data = html_data.split("tbody")[1]
-
-        return html_data
 
     # converts course catalogue page html data into lists
     def process_course_catalogue(self, raw_data):
@@ -185,17 +156,21 @@ class AMSScraper:
     # converts major minor report page html data into lists
     def process_major_minor(self, raw_data):
 
+        raw_data = raw_data.split("<tbody")[1].split(
+            '<tr role="row"><th colspan="6" class="ts-pager form-horizontal tablesorter-pager"'
+        )[0]
         row_count = len(raw_data.split("</tr>"))
         data = [[[None] for column in range(6)] for row in range(row_count - 1)]
 
         for i in range(row_count - 1):
             start_location = raw_data.find("<tr")
-            one_row = raw_data[start_location:]
+            end_location = raw_data.find("</tr>")
+            one_row = raw_data[start_location:end_location]
 
-            for j in range(1, 7):
+            for j in range(6):
                 cell_start = one_row.find("<td")
                 cell_end = one_row.find("</td>")
-                data[i][j - 1] = (
+                data[i][j] = (
                     one_row[cell_start:cell_end]
                     .replace("<br>", " ")
                     .split(">")[1]
@@ -208,7 +183,7 @@ class AMSScraper:
 
     def scrape(self, page_namestring):
 
-        html_table, ams_data = "", [None]
+        ams_data = [None]
 
         # base url
         self.driver.get("https://ams.ashoka.edu.in/")
@@ -227,32 +202,19 @@ class AMSScraper:
             course_details = self.grab_course_catalogue_details()
             ams_data = self.process_course_catalogue(html_table)
 
-        if page_namestring == "Major Minor Report":
+        if page_namestring == "Student Directory":
 
             # retrieved data at major.txt
 
             self.navigate_to_page_from_navbar(8, page_namestring)
-            html_table = self.grab_major_minor_rows()
+            ams_data = []
 
-            with open("./students_html.txt", "w") as file:
-                file.write(str(html_table))
-
-            ams_data = self.process_major_minor(html_table)
-
-        return html_table, ams_data
-
-    def raw_data(self):
-        return self.scrape("Major Minor Report")[1]
+        return ams_data
 
 
 if __name__ == "__main__":
     scraper = AMSScraper()
 
-    # scrape AMS for students with academic details
-    string_data, data = scraper.scrape("Major Minor Report")
+    data = scraper.scrape("Student Directory")
     with open("./students.txt", "w") as file:
         file.write(str(data))
-
-    # OR use pre-retrieved data
-    # with open("./students.txt", "r") as file:
-    #    data = file.read()
