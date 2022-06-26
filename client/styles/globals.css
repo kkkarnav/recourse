@@ -1,0 +1,31 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  padding-top: 1vw;
+  background-color: #000000;
+  color: #f0f0f0;
+}
+
+.nav-tabs .nav-link {
+  text-decoration: none;
+  color: #f0f0f0;
+  border: none;
+}
+.nav-tabs .nav-link:hover {
+  color: #f0f0f0;
+  border: none;
+}
