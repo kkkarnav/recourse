@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Course Reviews</title>
+    <style>
+      html, body {
+        min-height: 100%;
+        background-color: black;
+        color: rgb(52, 133, 255);;
+      }
+      body, div, form, input, select { 
+        padding: 0;
+        margin: 0;
+        outline: none;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: #666;
+        line-height: 22px;
+      }
+      h1, h1, h3, h4 {
+        margin: 15px 0 4px;
+        font-weight: 400;
+      }
+      h1, h1, h3 {
+        color: rgb(52, 133, 255);;
+      }
+      h4 {
+        font-size: 12px;
+      }
+      span {
+        color: rgb(52, 133, 255);
+      }
+      .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+      }
+      form {
+        width: 100%;
+        padding: 20px;
+        background: black;
+      }
+      input {
+        width: calc(100% - 10px);
+        padding: 5px;
+        border: 1px solid rgb(52, 133, 255);;
+        border-radius: 3px;
+        vertical-align: middle;
+        background: black;
+        color: white;
+      }
+      input:hover, textarea:hover, select:hover {
+        outline: none;
+        border: 1px solid rgb(52, 133, 255);;
+      }
+      .name input {
+        margin-bottom: 10px;
+      }
+      select {
+        padding: 7px 0;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        background: black;
+        color: white;
+        font-size: 16px;
+      }
+      option {
+        background: black;
+        color: white;
+        border: 3px solid rgb(52, 133, 255);
+      }
+      select, table {
+        width: 100%;
+      }
+      th, td {
+        width: 18%;
+        padding: 15px 0;
+        text-align: center;
+        vertical-align: unset;
+        line-height: 18px;
+        font-weight: 400;
+        word-break: break-all;
+        color: white;
+      }
+      .first-col {
+        width: 25%;
+        text-align: left;
+      }
+      textarea {
+        width: calc(100% - 6px);
+      }
+      .btn-block {
+        margin-top: 20px;
+        text-align: center;
+      }
+      button {
+        width: 150px;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px; 
+        -moz-border-radius: 5px; 
+        border-radius: 5px; 
+        background-color: rgb(52, 133, 255);;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0666a3;
+      }
+      input[type='text'] {
+        font-size: 16px;
+      }
+      input[type='radio'] {
+        height: 15px;
+        width: 15px;
+        vertical-align: middle;
+        background-color: #555555;
+        border: 0px;
+      }
+      td span {
+        font-size: 16px;
+      }
+      @media (min-width: 568px) {
+        .name {
+          display: flex;
+          justify-content: space-between;
+        }
+        .name input {
+          width: 47%;
+          margin-bottom: 0;
+        }
+        th, td {
+          word-break: keep-all;
+        }
+      }
+    </style>
+    <script type="text/javascript" src="./index.js"></script>
+    <link rel="stylesheet" src="./material-kit.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="testbox" style="padding: 5vw;">
+      <form name="reviews" netlify action="/pages/success">
+
+        <h1 style="text-align: center;">Select your course</h1>
+        <br>
+        <h3>Department</h3>
+        <select id="departments" onchange="local_choose_semester(this.value)" autocomplete="off">
+          <option id="default_dep" value="default" selected>*Please Select*</option>
+          <option value="FC">FC</option>
+          <option value="CT">ICT</option>
+          <option value="CPA">CC</option>
+          <option value="BIO">Biology</option>
+          <option value="CHM">Chemistry</option>
+          <option value="CS">Computer Science</option>
+          <option value="CW">Creative Writing</option>
+          <option value="ECO">Economics</option>
+          <option value="ENG">English</option>
+          <option value="ENT">Entrepreneurship</option>
+          <option value="EVS">Environmental Studies</option>
+          <option value="HIS">History</option>
+          <option value="IR">International Relations</option>
+          <option value="MAT">Mathematics</option>
+          <option value="MS">Media Studies</option>
+          <option value="PA">Performing Arts</option>
+          <option value="PHIL">Philosophy</option>
+          <option value="PHY">Physics</option>
+          <option value="POL">Political Science</option>
+          <option value="PSY">Psychology</option>
+          <option value="SOA">Sociology</option>
+          <option value="VA">Visual Arts</option>
+        </select>
+
+        <h3>Semester</h3>
+        <select id="course_semesters" onchange="local_choose_name(this.value)">
+          <option id="default_semester" value="default" selected>*Please Select Department*</option>
+        </select>
+
+        <h3>Course</h3>
+        <select id="course_names" onchange="local_choose_prof(this.value)">
+          <option id="default_course" value="default" selected>*Please Select Semester*</option>
+        </select>
+
+        <h3>Professor</h3>
+        <select id="prof_names">
+          <option id="default_prof" value="default" selected>*Please Select Course*</option>
+        </select>
+
+        <br><br><br>
+        <h1 style="text-align: center;">Feedback</h1>
+        <br>
+        <h3>How engaging is the prof(s)?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">I can't stay awake for longer than five minutes at a time</td>
+            <td><span>1 &nbsp;<input type="radio" name="1" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="1" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="1" value="3" checked="true" /></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="1" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="1" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">Changed my life, I haven't missed a single lecture</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>How interesting is the course material?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">Literally just three months of reading boring books</td>
+            <td><span>1 &nbsp;<input type="radio" name="2" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="2" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="2" value="3" checked="true"/></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="2" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="2" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">OG Ashoka experience coolest stuff ever</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>How's the grading?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">Half the class failed and the other half died</td>
+            <td><span>1 &nbsp;<input type="radio" name="3" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="3" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="3" value="3" checked="checked" /></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="3" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="3" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">I vomited on google docs and got an A</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>How light is the workload?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">Five assignments a week</td>
+            <td><span>1 &nbsp;<input type="radio" name="4" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="4" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="4" value="3" checked="checked"  /></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="4" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="4" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">Deadlines kya hota hai</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>How's the attendance policy?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">I got an F for joining five minutes late because I was in the hospital</td>
+            <td><span>1 &nbsp;<input type="radio" name="5" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="5" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="5" value="3" checked="checked"  /></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="5" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="5" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">idk i haven't attended since week one</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>How were the TFs/TAs?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">My theory is that they're serial killers</td>
+            <td><span>1 &nbsp;<input type="radio" name="6" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="6" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="6" value="3" checked="checked"  /></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="6" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="6" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">The nicest, most helpful, most beautiful people on earth</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>Holistic assessment time: If you could talk to yourself from three months ago, would you recommend this course overall?</h3>
+        <br>
+        <table>
+          <tr>
+            <td style="min-width: 20vw; margin-right: 5vw;">Take any course except this one</td>
+            <td><span>1 &nbsp;<input type="radio" name="7" value="1" /></span></td>
+            <td><span>2 &nbsp;<input type="radio" name="7" value="2" /></span></td>
+            <td><span>3 &nbsp;<input type="radio" name="7" value="3" checked="checked"  /></span></td>
+            <td><span>4 &nbsp;<input type="radio" name="7" value="4" /></span></td>
+            <td><span>5 &nbsp;<input type="radio" name="7" value="5" /></span></td>
+            <td style="min-width: 20vw; margin-left: 5vw;">Drop out of university if you don't get this course</td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <h3>Finally, do you have any specific comments/reviews/advice?</h3>
+        <h4 style="font-size: 12px;">For example, this is taken from last year's site, about debayan's FCP: "Great course, heavy courseload but great grading where you're guaranteed an A as long as you're willing to work for it. I'm doing a CS minor purely because of prof and the things taught in FCP."</h4>
+        <input type="text" name="feedback" style="min-height: 80px;">
+        <br>
+        <h3>Your ashoka email id</h3>
+        <h4 style="font-size: 12px;">This is completely optional but if you choose to put down your ashoka email id, your review will be given higher weightage (because then we can verify that you actually took the course). Your email will NOT be posted on the site, linked to your review, or used anywhere at all except to check against the course registry.</h4>
+        <input type="text" name="email">
+        <br>
+        <br>
+        <div class="btn-block">
+          <button type="submit">Send Feedback</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
