@@ -57,7 +57,7 @@ const Courses: NextPage = ({courses}) => {
         <p>something</p>
 
         <Button variant="contained">Hello World</Button>
-      </djv>
+    </div>
   )
 }
 
