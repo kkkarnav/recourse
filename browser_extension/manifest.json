@@ -1,0 +1,23 @@
+{
+  "name": "RecoursesEx",
+  "description": "Outlet for the Recourses API",
+  "version": "0.1",
+  "manifest_version": 2,
+  "permissions": [
+    "https://recourseatashoka.herokuapp.com/*"
+  ],
+  "content_scripts":[
+    {
+     "matches":["https://ams.ashoka.edu.in/*"],
+     "js":["./background.js"]
+    }
+  ],
+  "action": {
+    "default_title": "RecoursesEx",
+    "default_icon": "./icon.png",
+    "default_popup": "./popup.html"
+  },
+  "icons": {
+    "16": "./icon.png"
+  }
+}
