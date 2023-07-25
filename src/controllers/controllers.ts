@@ -76,7 +76,9 @@ const getCourse = async (
   }
 
   // mongoose schema call
-  const courses = await Course.find(queries);
+  console.log(queries);
+  const courses = await Course.find();
+  console.log(courses);
 
   // respond with course json
   return response.status(200).json({
@@ -539,5 +541,5 @@ export default {
   addReview,
   updateCourse,
   updateFaculty,
-  updateReview,
+  updateReview
 };

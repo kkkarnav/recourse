@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,  { ConnectOptions } from "mongoose";
 
 // generate database url from .env
 const db_url: string = "".concat(
@@ -8,11 +8,17 @@ const db_url: string = "".concat(
     process.env.DB_PWD!,
     "@",
     process.env.DB_HOST!,
-    ".w70wr.mongodb.net/recourse?retryWrites=true&w=majority"
+    "/?retryWrites=true&w=majority"
 );
 
+const db_name: string = 'recourse';
+
+const connect_options: ConnectOptions = {
+  dbName: db_name,
+};
+
 // connect to mongodb
-mongoose.connect(db_url);
+mongoose.connect(db_url, connect_options, (err: any) => {});
 const db_connection: any = mongoose.connection;
 
 // report success or failure
