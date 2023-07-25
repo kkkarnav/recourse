@@ -76,9 +76,7 @@ const getCourse = async (
   }
 
   // mongoose schema call
-  console.log(queries);
-  const courses = await Course.find();
-  console.log(courses);
+  const courses = await Course.find(queries);
 
   // respond with course json
   return response.status(200).json({
@@ -207,8 +205,6 @@ const getReview = async (
       };
     }
   }
-
-  console.log(queries);
 
   // mongoose schema call
   const reviews = await Review.find(queries);

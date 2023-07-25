@@ -2,10 +2,12 @@ import http from "http";
 import express, { Express } from "express";
 import morgan from "morgan";
 require("dotenv").config();
+import cors from "cors";
 
 import routes from "./routes/routes";
 
 const router: Express = express();
+router.use(cors());
 
 //logging
 router.use(morgan("dev"));
