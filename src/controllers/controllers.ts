@@ -193,7 +193,8 @@ const getReview = async (
         $options: "is",
       };
     } else if (["verified"].includes(query.toLowerCase())) {
-      queries["verified"] = request.query[query]!.toString().toLowerCase() !== "false";
+      queries["verified"] =
+        request.query[query]!.toString().toLowerCase() !== "false";
     } else if (["id"].includes(query.toLowerCase())) {
       queries["_id"] = request.query[query];
     } else if (["course_id"].includes(query.toLowerCase())) {
@@ -537,5 +538,5 @@ export default {
   addReview,
   updateCourse,
   updateFaculty,
-  updateReview
+  updateReview,
 };

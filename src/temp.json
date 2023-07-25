@@ -1,544 +1,544 @@
 {
-    "data": [
-        {
-            "codes": ["[CT-0001-3]", "[CT-0001-4]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 5.0,
-                "attendance": 4.0,
-                "compound_score": 4.79,
-                "engaging": 5.0,
-                "grading": 4.0,
-                "holistic": 5.0,
-                "interesting_material": 4.5,
-                "sample_size": 2,
-                "workload": 5.0
-            }
-        },
-        {
-            "codes": ["[CT-0001-14]", "[CT-0001-15]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.2,
-                "attendance": 3.4,
-                "compound_score": 4.31,
-                "engaging": 4.6,
-                "grading": 3.8,
-                "holistic": 4.6,
-                "interesting_material": 4.4,
-                "sample_size": 5,
-                "workload": 3.8
-            }
-        },
-        {
-            "codes": ["[FC-0309-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.11,
-                "attendance": 4.56,
-                "compound_score": 4.24,
-                "engaging": 4.56,
-                "grading": 3.33,
-                "holistic": 4.5,
-                "interesting_material": 4.83,
-                "sample_size": 18,
-                "workload": 2.78
-            }
-        },
-        {
-            "codes": ["[CT-0001-20]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.5,
-                "attendance": 4.0,
-                "compound_score": 4.11,
-                "engaging": 4.33,
-                "grading": 3.33,
-                "holistic": 4.67,
-                "interesting_material": 3.33,
-                "sample_size": 3,
-                "workload": 3.33
-            }
-        },
-        {
-            "codes": ["[FC-0601-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.75,
-                "attendance": 2.67,
-                "compound_score": 4.08,
-                "engaging": 4.33,
-                "grading": 3.5,
-                "holistic": 4.58,
-                "interesting_material": 4.58,
-                "sample_size": 12,
-                "workload": 2.67
-            }
-        },
-        {
-            "codes": ["[FC-0201-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.5,
-                "attendance": 4.5,
-                "compound_score": 4.03,
-                "engaging": 3.25,
-                "grading": 4.25,
-                "holistic": 4.25,
-                "interesting_material": 3.75,
-                "sample_size": 4,
-                "workload": 4.25
-            }
-        },
-        {
-            "codes": ["[FC-0201-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.5,
-                "attendance": 3.12,
-                "compound_score": 3.96,
-                "engaging": 3.75,
-                "grading": 4.0,
-                "holistic": 4.25,
-                "interesting_material": 3.88,
-                "sample_size": 8,
-                "workload": 4.12
-            }
-        },
-        {
-            "codes": ["[FC-0306-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.67,
-                "attendance": 4.0,
-                "compound_score": 3.94,
-                "engaging": 2.67,
-                "grading": 4.67,
-                "holistic": 4.67,
-                "interesting_material": 3.0,
-                "sample_size": 3,
-                "workload": 4.0
-            }
-        },
-        {
-            "codes": ["[FC-0701-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.25,
-                "attendance": 3.5,
-                "compound_score": 3.94,
-                "engaging": 3.75,
-                "grading": 4.0,
-                "holistic": 4.25,
-                "interesting_material": 3.5,
-                "sample_size": 4,
-                "workload": 3.75
-            }
-        },
-        {
-            "codes": ["[CT-0001-12]", "[CT-0001-13]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.6,
-                "attendance": 4.4,
-                "compound_score": 3.91,
-                "engaging": 4.2,
-                "grading": 2.7,
-                "holistic": 4.2,
-                "interesting_material": 4.2,
-                "sample_size": 5,
-                "workload": 2.8
-            }
-        },
-        {
-            "codes": ["[FC-0701-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.53,
-                "attendance": 3.13,
-                "compound_score": 3.86,
-                "engaging": 4.0,
-                "grading": 3.27,
-                "holistic": 4.27,
-                "interesting_material": 4.0,
-                "sample_size": 15,
-                "workload": 2.8
-            }
-        },
-        {
-            "codes": ["[CT-0001-10]", "[CT-0001-11]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.0,
-                "attendance": 3.0,
-                "compound_score": 3.85,
-                "engaging": 4.25,
-                "grading": 3.75,
-                "holistic": 4.0,
-                "interesting_material": 4.5,
-                "sample_size": 4,
-                "workload": 2.75
-            }
-        },
-        {
-            "codes": ["[FC-0701-3]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.43,
-                "attendance": 2.26,
-                "compound_score": 3.74,
-                "engaging": 4.17,
-                "grading": 3.17,
-                "holistic": 4.09,
-                "interesting_material": 4.0,
-                "sample_size": 23,
-                "workload": 2.78
-            }
-        },
-        {
-            "codes": ["[FC-0102-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.0,
-                "attendance": 3.5,
-                "compound_score": 3.73,
-                "engaging": 3.75,
-                "grading": 2.88,
-                "holistic": 4.12,
-                "interesting_material": 4.38,
-                "sample_size": 8,
-                "workload": 2.5
-            }
-        },
-        {
-            "codes": ["[CT-0001-2]", "[CT-0001-9]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.5,
-                "attendance": 3.25,
-                "compound_score": 3.72,
-                "engaging": 4.5,
-                "grading": 2.5,
-                "holistic": 4.0,
-                "interesting_material": 4.25,
-                "sample_size": 4,
-                "workload": 2.25
-            }
-        },
-        {
-            "codes": ["[FC-0503-3]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.83,
-                "attendance": 3.83,
-                "compound_score": 3.62,
-                "engaging": 3.67,
-                "grading": 3.33,
-                "holistic": 3.83,
-                "interesting_material": 4.0,
-                "sample_size": 6,
-                "workload": 2.5
-            }
-        },
-        {
-            "codes": ["[FC-0601-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.58,
-                "attendance": 2.42,
-                "compound_score": 3.56,
-                "engaging": 2.75,
-                "grading": 4.17,
-                "holistic": 3.92,
-                "interesting_material": 3.67,
-                "sample_size": 12,
-                "workload": 4.0
-            }
-        },
-        {
-            "codes": ["[FC-0310-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 2.2,
-                "attendance": 3.7,
-                "compound_score": 3.49,
-                "engaging": 3.7,
-                "grading": 3.4,
-                "holistic": 3.6,
-                "interesting_material": 3.8,
-                "sample_size": 10,
-                "workload": 2.9
-            }
-        },
-        {
-            "codes": ["[FC-0412-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.5,
-                "attendance": 4.62,
-                "compound_score": 3.41,
-                "engaging": 2.25,
-                "grading": 2.62,
-                "holistic": 3.38,
-                "interesting_material": 4.25,
-                "sample_size": 8,
-                "workload": 4.12
-            }
-        },
-        {
-            "codes": ["[FC-0410-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.43,
-                "attendance": 2.43,
-                "compound_score": 3.26,
-                "engaging": 3.71,
-                "grading": 2.71,
-                "holistic": 3.57,
-                "interesting_material": 4.0,
-                "sample_size": 7,
-                "workload": 1.71
-            }
-        },
-        {
-            "codes": ["[FC-0503-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.47,
-                "attendance": 4.16,
-                "compound_score": 3.19,
-                "engaging": 3.58,
-                "grading": 2.32,
-                "holistic": 3.21,
-                "interesting_material": 3.37,
-                "sample_size": 19,
-                "workload": 2.16
-            }
-        },
-        {
-            "codes": ["[FC-0503-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.43,
-                "attendance": 3.43,
-                "compound_score": 3.15,
-                "engaging": 2.57,
-                "grading": 3.43,
-                "holistic": 3.29,
-                "interesting_material": 3.14,
-                "sample_size": 7,
-                "workload": 2.86
-            }
-        },
-        {
-            "codes": ["[FC-0311-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.7,
-                "attendance": 4.6,
-                "compound_score": 3.1,
-                "engaging": 1.6,
-                "grading": 4.2,
-                "holistic": 3.4,
-                "interesting_material": 2.0,
-                "sample_size": 5,
-                "workload": 3.6
-            }
-        },
-        {
-            "codes": ["[CT-0001-18]", "[CT-0001-19]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.67,
-                "attendance": 3.67,
-                "compound_score": 3.09,
-                "engaging": 3.33,
-                "grading": 3.33,
-                "holistic": 2.67,
-                "interesting_material": 2.67,
-                "sample_size": 3,
-                "workload": 3.33
-            }
-        },
-        {
-            "codes": ["[FC-0201-3]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 2.73,
-                "attendance": 3.18,
-                "compound_score": 3.06,
-                "engaging": 2.64,
-                "grading": 3.64,
-                "holistic": 3.0,
-                "interesting_material": 2.55,
-                "sample_size": 11,
-                "workload": 4.0
-            }
-        },
-        {
-            "codes": ["[FC-0801-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.42,
-                "attendance": 4.92,
-                "compound_score": 2.92,
-                "engaging": 1.58,
-                "grading": 3.58,
-                "holistic": 2.92,
-                "interesting_material": 2.0,
-                "sample_size": 12,
-                "workload": 4.0
-            }
-        },
-        {
-            "codes": ["[MAT-1000-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.67,
-                "attendance": 4.17,
-                "compound_score": 2.88,
-                "engaging": 2.83,
-                "grading": 2.67,
-                "holistic": 3.0,
-                "interesting_material": 3.33,
-                "sample_size": 6,
-                "workload": 1.17
-            }
-        },
-        {
-            "codes": ["[FC-0412-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 4.75,
-                "attendance": 3.75,
-                "compound_score": 2.77,
-                "engaging": 2.5,
-                "grading": 3.0,
-                "holistic": 2.25,
-                "interesting_material": 2.5,
-                "sample_size": 4,
-                "workload": 3.75
-            }
-        },
-        {
-            "codes": ["[FC-0411-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.89,
-                "attendance": 4.33,
-                "compound_score": 2.76,
-                "engaging": 1.67,
-                "grading": 3.22,
-                "holistic": 2.67,
-                "interesting_material": 2.89,
-                "sample_size": 9,
-                "workload": 3.0
-            }
-        },
-        {
-            "codes": ["[FC-0801-3]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 2.92,
-                "attendance": 4.83,
-                "compound_score": 2.72,
-                "engaging": 1.88,
-                "grading": 4.08,
-                "holistic": 2.5,
-                "interesting_material": 1.83,
-                "sample_size": 12,
-                "workload": 3.25
-            }
-        },
-        {
-            "codes": ["[MAT-1000-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.4,
-                "attendance": 4.8,
-                "compound_score": 2.68,
-                "engaging": 2.6,
-                "grading": 2.6,
-                "holistic": 2.2,
-                "interesting_material": 2.2,
-                "sample_size": 5,
-                "workload": 3.2
-            }
-        },
-        {
-            "codes": ["[FC-0102-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.12,
-                "attendance": 3.12,
-                "compound_score": 2.61,
-                "engaging": 1.88,
-                "grading": 4.0,
-                "holistic": 2.5,
-                "interesting_material": 2.5,
-                "sample_size": 8,
-                "workload": 2.88
-            }
-        },
-        {
-            "codes": ["[FC-0102-3]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.38,
-                "attendance": 3.0,
-                "compound_score": 2.35,
-                "engaging": 1.62,
-                "grading": 3.5,
-                "holistic": 2.0,
-                "interesting_material": 2.0,
-                "sample_size": 8,
-                "workload": 3.5
-            }
-        },
-        {
-            "codes": ["[FC-0601-3]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 3.75,
-                "attendance": 4.5,
-                "compound_score": 2.31,
-                "engaging": 1.5,
-                "grading": 2.5,
-                "holistic": 1.75,
-                "interesting_material": 2.0,
-                "sample_size": 4,
-                "workload": 3.75
-            }
-        },
-        {
-            "codes": ["[FC-0801-1]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 2.47,
-                "attendance": 3.4,
-                "compound_score": 2.26,
-                "engaging": 2.47,
-                "grading": 2.2,
-                "holistic": 1.93,
-                "interesting_material": 2.67,
-                "sample_size": 15,
-                "workload": 1.87
-            }
-        },
-        {
-            "codes": ["[FC-0306-2]"],
-            "semester": "monsoon 2021",
-            "grading": {
-                "TFs": 5.0,
-                "attendance": 5.0,
-                "compound_score": 2.04,
-                "engaging": 1.0,
-                "grading": 2.0,
-                "holistic": 1.5,
-                "interesting_material": 1.0,
-                "sample_size": 2,
-                "workload": 3.5
-            }
-        }
-    ]
+  "data": [
+    {
+      "codes": ["[CT-0001-3]", "[CT-0001-4]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 5.0,
+        "attendance": 4.0,
+        "compound_score": 4.79,
+        "engaging": 5.0,
+        "grading": 4.0,
+        "holistic": 5.0,
+        "interesting_material": 4.5,
+        "sample_size": 2,
+        "workload": 5.0
+      }
+    },
+    {
+      "codes": ["[CT-0001-14]", "[CT-0001-15]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.2,
+        "attendance": 3.4,
+        "compound_score": 4.31,
+        "engaging": 4.6,
+        "grading": 3.8,
+        "holistic": 4.6,
+        "interesting_material": 4.4,
+        "sample_size": 5,
+        "workload": 3.8
+      }
+    },
+    {
+      "codes": ["[FC-0309-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.11,
+        "attendance": 4.56,
+        "compound_score": 4.24,
+        "engaging": 4.56,
+        "grading": 3.33,
+        "holistic": 4.5,
+        "interesting_material": 4.83,
+        "sample_size": 18,
+        "workload": 2.78
+      }
+    },
+    {
+      "codes": ["[CT-0001-20]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.5,
+        "attendance": 4.0,
+        "compound_score": 4.11,
+        "engaging": 4.33,
+        "grading": 3.33,
+        "holistic": 4.67,
+        "interesting_material": 3.33,
+        "sample_size": 3,
+        "workload": 3.33
+      }
+    },
+    {
+      "codes": ["[FC-0601-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.75,
+        "attendance": 2.67,
+        "compound_score": 4.08,
+        "engaging": 4.33,
+        "grading": 3.5,
+        "holistic": 4.58,
+        "interesting_material": 4.58,
+        "sample_size": 12,
+        "workload": 2.67
+      }
+    },
+    {
+      "codes": ["[FC-0201-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.5,
+        "attendance": 4.5,
+        "compound_score": 4.03,
+        "engaging": 3.25,
+        "grading": 4.25,
+        "holistic": 4.25,
+        "interesting_material": 3.75,
+        "sample_size": 4,
+        "workload": 4.25
+      }
+    },
+    {
+      "codes": ["[FC-0201-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.5,
+        "attendance": 3.12,
+        "compound_score": 3.96,
+        "engaging": 3.75,
+        "grading": 4.0,
+        "holistic": 4.25,
+        "interesting_material": 3.88,
+        "sample_size": 8,
+        "workload": 4.12
+      }
+    },
+    {
+      "codes": ["[FC-0306-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.67,
+        "attendance": 4.0,
+        "compound_score": 3.94,
+        "engaging": 2.67,
+        "grading": 4.67,
+        "holistic": 4.67,
+        "interesting_material": 3.0,
+        "sample_size": 3,
+        "workload": 4.0
+      }
+    },
+    {
+      "codes": ["[FC-0701-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.25,
+        "attendance": 3.5,
+        "compound_score": 3.94,
+        "engaging": 3.75,
+        "grading": 4.0,
+        "holistic": 4.25,
+        "interesting_material": 3.5,
+        "sample_size": 4,
+        "workload": 3.75
+      }
+    },
+    {
+      "codes": ["[CT-0001-12]", "[CT-0001-13]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.6,
+        "attendance": 4.4,
+        "compound_score": 3.91,
+        "engaging": 4.2,
+        "grading": 2.7,
+        "holistic": 4.2,
+        "interesting_material": 4.2,
+        "sample_size": 5,
+        "workload": 2.8
+      }
+    },
+    {
+      "codes": ["[FC-0701-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.53,
+        "attendance": 3.13,
+        "compound_score": 3.86,
+        "engaging": 4.0,
+        "grading": 3.27,
+        "holistic": 4.27,
+        "interesting_material": 4.0,
+        "sample_size": 15,
+        "workload": 2.8
+      }
+    },
+    {
+      "codes": ["[CT-0001-10]", "[CT-0001-11]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.0,
+        "attendance": 3.0,
+        "compound_score": 3.85,
+        "engaging": 4.25,
+        "grading": 3.75,
+        "holistic": 4.0,
+        "interesting_material": 4.5,
+        "sample_size": 4,
+        "workload": 2.75
+      }
+    },
+    {
+      "codes": ["[FC-0701-3]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.43,
+        "attendance": 2.26,
+        "compound_score": 3.74,
+        "engaging": 4.17,
+        "grading": 3.17,
+        "holistic": 4.09,
+        "interesting_material": 4.0,
+        "sample_size": 23,
+        "workload": 2.78
+      }
+    },
+    {
+      "codes": ["[FC-0102-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.0,
+        "attendance": 3.5,
+        "compound_score": 3.73,
+        "engaging": 3.75,
+        "grading": 2.88,
+        "holistic": 4.12,
+        "interesting_material": 4.38,
+        "sample_size": 8,
+        "workload": 2.5
+      }
+    },
+    {
+      "codes": ["[CT-0001-2]", "[CT-0001-9]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.5,
+        "attendance": 3.25,
+        "compound_score": 3.72,
+        "engaging": 4.5,
+        "grading": 2.5,
+        "holistic": 4.0,
+        "interesting_material": 4.25,
+        "sample_size": 4,
+        "workload": 2.25
+      }
+    },
+    {
+      "codes": ["[FC-0503-3]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.83,
+        "attendance": 3.83,
+        "compound_score": 3.62,
+        "engaging": 3.67,
+        "grading": 3.33,
+        "holistic": 3.83,
+        "interesting_material": 4.0,
+        "sample_size": 6,
+        "workload": 2.5
+      }
+    },
+    {
+      "codes": ["[FC-0601-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.58,
+        "attendance": 2.42,
+        "compound_score": 3.56,
+        "engaging": 2.75,
+        "grading": 4.17,
+        "holistic": 3.92,
+        "interesting_material": 3.67,
+        "sample_size": 12,
+        "workload": 4.0
+      }
+    },
+    {
+      "codes": ["[FC-0310-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 2.2,
+        "attendance": 3.7,
+        "compound_score": 3.49,
+        "engaging": 3.7,
+        "grading": 3.4,
+        "holistic": 3.6,
+        "interesting_material": 3.8,
+        "sample_size": 10,
+        "workload": 2.9
+      }
+    },
+    {
+      "codes": ["[FC-0412-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.5,
+        "attendance": 4.62,
+        "compound_score": 3.41,
+        "engaging": 2.25,
+        "grading": 2.62,
+        "holistic": 3.38,
+        "interesting_material": 4.25,
+        "sample_size": 8,
+        "workload": 4.12
+      }
+    },
+    {
+      "codes": ["[FC-0410-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.43,
+        "attendance": 2.43,
+        "compound_score": 3.26,
+        "engaging": 3.71,
+        "grading": 2.71,
+        "holistic": 3.57,
+        "interesting_material": 4.0,
+        "sample_size": 7,
+        "workload": 1.71
+      }
+    },
+    {
+      "codes": ["[FC-0503-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.47,
+        "attendance": 4.16,
+        "compound_score": 3.19,
+        "engaging": 3.58,
+        "grading": 2.32,
+        "holistic": 3.21,
+        "interesting_material": 3.37,
+        "sample_size": 19,
+        "workload": 2.16
+      }
+    },
+    {
+      "codes": ["[FC-0503-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.43,
+        "attendance": 3.43,
+        "compound_score": 3.15,
+        "engaging": 2.57,
+        "grading": 3.43,
+        "holistic": 3.29,
+        "interesting_material": 3.14,
+        "sample_size": 7,
+        "workload": 2.86
+      }
+    },
+    {
+      "codes": ["[FC-0311-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.7,
+        "attendance": 4.6,
+        "compound_score": 3.1,
+        "engaging": 1.6,
+        "grading": 4.2,
+        "holistic": 3.4,
+        "interesting_material": 2.0,
+        "sample_size": 5,
+        "workload": 3.6
+      }
+    },
+    {
+      "codes": ["[CT-0001-18]", "[CT-0001-19]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.67,
+        "attendance": 3.67,
+        "compound_score": 3.09,
+        "engaging": 3.33,
+        "grading": 3.33,
+        "holistic": 2.67,
+        "interesting_material": 2.67,
+        "sample_size": 3,
+        "workload": 3.33
+      }
+    },
+    {
+      "codes": ["[FC-0201-3]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 2.73,
+        "attendance": 3.18,
+        "compound_score": 3.06,
+        "engaging": 2.64,
+        "grading": 3.64,
+        "holistic": 3.0,
+        "interesting_material": 2.55,
+        "sample_size": 11,
+        "workload": 4.0
+      }
+    },
+    {
+      "codes": ["[FC-0801-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.42,
+        "attendance": 4.92,
+        "compound_score": 2.92,
+        "engaging": 1.58,
+        "grading": 3.58,
+        "holistic": 2.92,
+        "interesting_material": 2.0,
+        "sample_size": 12,
+        "workload": 4.0
+      }
+    },
+    {
+      "codes": ["[MAT-1000-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.67,
+        "attendance": 4.17,
+        "compound_score": 2.88,
+        "engaging": 2.83,
+        "grading": 2.67,
+        "holistic": 3.0,
+        "interesting_material": 3.33,
+        "sample_size": 6,
+        "workload": 1.17
+      }
+    },
+    {
+      "codes": ["[FC-0412-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 4.75,
+        "attendance": 3.75,
+        "compound_score": 2.77,
+        "engaging": 2.5,
+        "grading": 3.0,
+        "holistic": 2.25,
+        "interesting_material": 2.5,
+        "sample_size": 4,
+        "workload": 3.75
+      }
+    },
+    {
+      "codes": ["[FC-0411-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.89,
+        "attendance": 4.33,
+        "compound_score": 2.76,
+        "engaging": 1.67,
+        "grading": 3.22,
+        "holistic": 2.67,
+        "interesting_material": 2.89,
+        "sample_size": 9,
+        "workload": 3.0
+      }
+    },
+    {
+      "codes": ["[FC-0801-3]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 2.92,
+        "attendance": 4.83,
+        "compound_score": 2.72,
+        "engaging": 1.88,
+        "grading": 4.08,
+        "holistic": 2.5,
+        "interesting_material": 1.83,
+        "sample_size": 12,
+        "workload": 3.25
+      }
+    },
+    {
+      "codes": ["[MAT-1000-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.4,
+        "attendance": 4.8,
+        "compound_score": 2.68,
+        "engaging": 2.6,
+        "grading": 2.6,
+        "holistic": 2.2,
+        "interesting_material": 2.2,
+        "sample_size": 5,
+        "workload": 3.2
+      }
+    },
+    {
+      "codes": ["[FC-0102-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.12,
+        "attendance": 3.12,
+        "compound_score": 2.61,
+        "engaging": 1.88,
+        "grading": 4.0,
+        "holistic": 2.5,
+        "interesting_material": 2.5,
+        "sample_size": 8,
+        "workload": 2.88
+      }
+    },
+    {
+      "codes": ["[FC-0102-3]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.38,
+        "attendance": 3.0,
+        "compound_score": 2.35,
+        "engaging": 1.62,
+        "grading": 3.5,
+        "holistic": 2.0,
+        "interesting_material": 2.0,
+        "sample_size": 8,
+        "workload": 3.5
+      }
+    },
+    {
+      "codes": ["[FC-0601-3]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 3.75,
+        "attendance": 4.5,
+        "compound_score": 2.31,
+        "engaging": 1.5,
+        "grading": 2.5,
+        "holistic": 1.75,
+        "interesting_material": 2.0,
+        "sample_size": 4,
+        "workload": 3.75
+      }
+    },
+    {
+      "codes": ["[FC-0801-1]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 2.47,
+        "attendance": 3.4,
+        "compound_score": 2.26,
+        "engaging": 2.47,
+        "grading": 2.2,
+        "holistic": 1.93,
+        "interesting_material": 2.67,
+        "sample_size": 15,
+        "workload": 1.87
+      }
+    },
+    {
+      "codes": ["[FC-0306-2]"],
+      "semester": "monsoon 2021",
+      "grading": {
+        "TFs": 5.0,
+        "attendance": 5.0,
+        "compound_score": 2.04,
+        "engaging": 1.0,
+        "grading": 2.0,
+        "holistic": 1.5,
+        "interesting_material": 1.0,
+        "sample_size": 2,
+        "workload": 3.5
+      }
+    }
+  ]
 }

@@ -18,30 +18,27 @@ router.use(express.json());
 
 // boilerplate
 router.use((request, response, next) => {
-    // set headers
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header(
-        "Access-Control-Allow-Headers",
-        "origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (request.method === "OPTIONS") {
-        response.header(
-            "Access-Control-Allow-Methods",
-            "GET PATCH DELETE POST"
-        );
-        return response.status(200).json({});
-    }
-    next();
+  // set headers
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header(
+    "Access-Control-Allow-Headers",
+    "origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (request.method === "OPTIONS") {
+    response.header("Access-Control-Allow-Methods", "GET PATCH DELETE POST");
+    return response.status(200).json({});
+  }
+  next();
 });
 
 router.use("/", routes);
 
 // handles 404ing requests
 router.use((request, response, next) => {
-    const error: Error = new Error("not found");
-    return response.status(404).json({
-        message: error.message,
-    });
+  const error: Error = new Error("not found");
+  return response.status(404).json({
+    message: error.message,
+  });
 });
 
 const server: any = http.createServer(router);
