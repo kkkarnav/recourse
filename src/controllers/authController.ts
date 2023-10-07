@@ -27,7 +27,7 @@ const sessionOptions: session.SessionOptions = {
     // secure: true, // Set to true if using HTTPS
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
-    maxAge: 3600000, // Cookie expiration time (1 hour in milliseconds)
+    maxAge: 3600,
     sameSite: false,
   },
 };
