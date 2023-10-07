@@ -29,4 +29,4 @@ db_connection.once("open", () => {
   console.log("db connected @ " + process.env.DB_HOST!);
 });
 
-export { mongoose };
+export { mongoose, db_url };

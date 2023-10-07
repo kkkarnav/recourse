@@ -2,8 +2,39 @@ import { Router } from "express";
 import passport from "passport";
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import { User } from "../models/user/model";
+import session from "express-session";
+import { db_url } from "../config/database";
+// import passport from "passport";
+import MongoDBStore from "connect-mongodb-session";
 
 const router = Router();
+
+const mongoStore = MongoDBStore(session);
+
+const store = new mongoStore({
+  collection: "userSessions",
+  uri: db_url,
+  expires: 1000,
+});
+
+const sessionOptions: session.SessionOptions = {
+  name: "session",
+  secret: process.env.SECRET!,
+  store: store,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    // secure: true, // Set to true if using HTTPS
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    maxAge: 3600000, // Cookie expiration time (1 hour in milliseconds)
+    sameSite: false,
+  },
+};
+router.use(session(sessionOptions));
+
+router.use(passport.initialize());
+router.use(passport.session());
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
