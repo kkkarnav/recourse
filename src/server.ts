@@ -3,10 +3,29 @@ import express, { Express } from "express";
 import morgan from "morgan";
 require("dotenv").config();
 import cors from "cors";
+import session from "express-session";
+import path from "path";
+import authController from "./controllers/authController";
+import { v4 as uuidv4 } from "uuid";
 
 import routes from "./routes/routes";
+import passport from "passport";
 
 const router: Express = express();
+
+router.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SECRET!,
+    genid: function (req) {
+      return uuidv4(); // use UUIDs for session IDs
+    },
+  })
+);
+
+router.use(passport.authenticate("session"));
+
 router.use(cors());
 
 //logging
@@ -31,7 +50,14 @@ router.use((request, response, next) => {
   next();
 });
 
-router.use("/", routes);
+router.get("/", (request, response) => {
+  return response
+    .status(200)
+    .sendFile("index.html", { root: path.join(__dirname, "../") });
+});
+
+router.use("/auth", authController);
+router.use("/api", routes);
 
 // handles 404ing requests
 router.use((request, response, next) => {

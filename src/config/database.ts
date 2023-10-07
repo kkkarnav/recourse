@@ -1,15 +1,17 @@
 import mongoose, { ConnectOptions } from "mongoose";
 
 // generate database url from .env
-const db_url: string = "".concat(
-  "mongodb+srv://",
-  process.env.DB_USER!,
-  ":",
-  process.env.DB_PWD!,
-  "@",
-  process.env.DB_HOST!,
-  "/?retryWrites=true&w=majority"
-);
+const db_url: string =
+  process.env.DB_CONNECTION_STRING ||
+  "".concat(
+    "mongodb+srv://",
+    process.env.DB_USER!,
+    ":",
+    process.env.DB_PWD!,
+    "@",
+    process.env.DB_HOST!,
+    "/?retryWrites=true&w=majority"
+  );
 
 const db_name: string = "recourse";
 
