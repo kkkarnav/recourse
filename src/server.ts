@@ -3,11 +3,20 @@ import express, { Express } from "express";
 import morgan from "morgan";
 require("dotenv").config();
 import cors from "cors";
+import path from "path";
+import authController from "./controllers/authController";
 
 import routes from "./routes/routes";
 
 const router: Express = express();
-router.use(cors());
+
+const corsOptions: cors.CorsOptions = {
+  origin: process.env.FRONTEND_DOMAIN!,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Enable passing of cookies, authentication headers, etc.
+};
+
+router.use(cors(corsOptions));
 
 //logging
 router.use(morgan("dev"));
@@ -16,22 +25,14 @@ router.use(express.urlencoded({ extended: false }));
 // parse incoming json
 router.use(express.json());
 
-// boilerplate
-router.use((request, response, next) => {
-  // set headers
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header(
-    "Access-Control-Allow-Headers",
-    "origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  if (request.method === "OPTIONS") {
-    response.header("Access-Control-Allow-Methods", "GET PATCH DELETE POST");
-    return response.status(200).json({});
-  }
-  next();
+router.get("/", (request, response) => {
+  return response
+    .status(200)
+    .sendFile("index.html", { root: path.join(__dirname, "../") });
 });
 
-router.use("/", routes);
+router.use("/auth", authController);
+router.use("/api", routes);
 
 // handles 404ing requests
 router.use((request, response, next) => {

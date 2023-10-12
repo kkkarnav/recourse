@@ -1,7 +1,7 @@
 import { createProxyMiddleware, Options } from "http-proxy-middleware";
 import { Express } from "express";
 
-const backendURL = "http://localhost:4004";
+const backendURL = `http://localhost:${process.env.PORT!}`;
 
 const proxyOptions: Options = {
   target: backendURL,
