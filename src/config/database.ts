@@ -1,5 +1,7 @@
 import mongoose, { ConnectOptions } from "mongoose";
 
+mongoose.set("strictQuery", true);
+
 // generate database url from .env
 const db_url: string =
   process.env.DB_CONNECTION_STRING ||

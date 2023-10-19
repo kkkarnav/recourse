@@ -40,6 +40,8 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 const CALLBACK_URL = `${process.env.SERVER_DOMAIN!}/auth/callback`;
 
+console.log(`Using google cient id: ${GOOGLE_CLIENT_ID}`);
+
 declare global {
   namespace Express {
     interface User {
@@ -57,6 +59,16 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, cb) {
       // const
+
+      const email = profile.emails![0].value;
+
+      const domain = email.split("@")[1];
+
+      if (domain !== "ashoka.edu.in") {
+        return cb(null, false, {
+          message: "User email not part of organisation",
+        });
+      }
 
       User.findOne({ google_id: profile.id })
         .then((user) => {
@@ -114,9 +126,16 @@ router.get("/info", (req, res) => {
     });
 });
 
+router.get("/error", (req, res) => {
+  res.redirect(`${process.env.FRONTEND_DOMAIN!}/`);
+});
+
 router.get(
   "/callback",
-  passport.authenticate("google", { failureRedirect: "/error" }),
+  passport.authenticate("google", {
+    failureRedirect: "/auth/error",
+    failureMessage: true,
+  }),
   function (req, res) {
     res.redirect(`${process.env.FRONTEND_DOMAIN!}/`);
   }
