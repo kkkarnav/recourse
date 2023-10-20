@@ -101,10 +101,11 @@ passport.deserializeUser(function (user: any, cb) {
   });
 });
 
-router.get(
-  "/login",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+router.get("/login", async (req, res) => {
+  const scopes = ["profile", "email"];
+  console.log(`Logging in with scopes: ${JSON.stringify(scopes)}`);
+  return await passport.authenticate("google", { scope: scopes })(req, res);
+});
 
 router.get("/info", (req, res) => {
   if (!req.user) {
